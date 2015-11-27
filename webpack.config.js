@@ -5,7 +5,7 @@ module.exports = {
 
   output: {
     path: __dirname + '/dist',
-    filename: "bundle.js"
+    filename: 'bundle.js'
   },
 
   module: {
@@ -13,7 +13,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015']
+        }
       }
     ]
   },
