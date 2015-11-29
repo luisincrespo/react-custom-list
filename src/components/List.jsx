@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Item from './Item';
 import NewItem from './NewItem';
 
 class List extends React.Component {
@@ -9,7 +10,12 @@ class List extends React.Component {
         <ul>
           {this.props.items.map((item, i) => {
             return (
-              <li key={i}>{item.get('name')}</li>
+              <Item
+                key={i}
+                item={item}
+                index={i}
+                onRemove={this.props.onRemove}
+                removeText={this.props.removeText}/>
             )
           })}
         </ul>
@@ -23,7 +29,9 @@ class List extends React.Component {
 
 List.propTypes = {
   onAdd: React.PropTypes.func.isRequired,
-  addText: React.PropTypes.string
+  addText: React.PropTypes.string,
+  onRemove: React.PropTypes.func.isRequired,
+  removeText: React.PropTypes.string
 };
 
 export default List;

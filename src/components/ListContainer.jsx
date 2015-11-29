@@ -16,7 +16,9 @@ class ListContainer extends React.Component {
       <AltContainer store={ListStore}>
         <List
           onAdd={this.props.onAdd}
-          addText={this.props.addText}/>
+          addText={this.props.addText}
+          onRemove={this.props.onRemove}
+          removeText={this.props.removeText}/>
       </AltContainer>
     );
   }
@@ -29,7 +31,9 @@ ListContainer.propTypes = {
     })
   ),
   onAdd: React.PropTypes.func.isRequired,
-  addText: React.PropTypes.string
+  addText: React.PropTypes.string,
+  onRemove: React.PropTypes.func.isRequired,
+  removeText: React.PropTypes.string
 };
 
 export default ListContainer;
