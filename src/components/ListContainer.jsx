@@ -14,7 +14,9 @@ class ListContainer extends React.Component {
   render() {
     return (
       <AltContainer store={ListStore}>
-        <List/>
+        <List
+          onAdd={this.props.onAdd}
+          addText={this.props.addText}/>
       </AltContainer>
     );
   }
@@ -25,7 +27,9 @@ ListContainer.propTypes = {
     React.PropTypes.shape({
       name: React.PropTypes.string
     })
-  )
+  ),
+  onAdd: React.PropTypes.func.isRequired,
+  addText: React.PropTypes.string
 };
 
 export default ListContainer;
