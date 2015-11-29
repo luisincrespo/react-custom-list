@@ -1,18 +1,19 @@
 import Immutable from 'immutable';
 
 import Alt from '../Alt';
+import ListActions from '../actions/ListActions';
 
 class ListStore {
   constructor() {
-    this.items = Immutable.List.of(
-      Immutable.Map({
-        name: 'Item 1'
-      }), Immutable.Map({
-        name: 'Item 2'
-      }), Immutable.Map({
-        name: 'Item 3'
-      })
-    );
+    this.items = Immutable.List();
+
+    this.bindListeners({
+      handleUpdateItems: ListActions.UPDATE_ITEMS
+    });
+  }
+
+  handleUpdateItems(items) {
+    this.items = Immutable.fromJS(items)
   }
 }
 
