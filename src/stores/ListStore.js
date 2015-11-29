@@ -8,12 +8,17 @@ class ListStore {
     this.items = Immutable.List();
 
     this.bindListeners({
-      handleUpdateItems: ListActions.UPDATE_ITEMS
+      handleUpdateItems: ListActions.UPDATE_ITEMS,
+      handleAddItem: ListActions.ADD_ITEM
     });
   }
 
   handleUpdateItems(items) {
     this.items = Immutable.fromJS(items)
+  }
+
+  handleAddItem(item) {
+    this.items = this.items.push(Immutable.fromJS(item))
   }
 }
 
