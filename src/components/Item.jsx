@@ -15,7 +15,7 @@ class Item extends React.Component {
 
     ListActions.removeItem(this.props.index);
 
-    this.props.onRemove(this.props.index);
+    this.props.onRemove(this.props.index, this.props.item.toJS());
   }
 
   onEdit(event) {
