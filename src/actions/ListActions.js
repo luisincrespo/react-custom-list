@@ -6,15 +6,19 @@ class ListActions {
   }
 
   addItem(item) {
-    this.dispatch(item)
+    this.dispatch(item);
   }
 
   removeItem(index) {
-    this.dispatch(index)
+    this.dispatch(index);
   }
 
   editItem(index, item) {
-    this.dispatch({index, item})
+    this.dispatch({index, item});
+  }
+
+  searchItem(query) {
+    this.dispatch(query);
   }
 }
 
