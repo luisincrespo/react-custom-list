@@ -10,7 +10,8 @@ class ListStore {
     this.bindListeners({
       handleUpdateItems: ListActions.UPDATE_ITEMS,
       handleAddItem: ListActions.ADD_ITEM,
-      handleRemoveItem: ListActions.REMOVE_ITEM
+      handleRemoveItem: ListActions.REMOVE_ITEM,
+      handleEditItem: ListActions.EDIT_ITEM
     });
   }
 
@@ -24,6 +25,10 @@ class ListStore {
 
   handleRemoveItem(index) {
     this.items = this.items.delete(index)
+  }
+
+  handleEditItem({index, item}) {
+    this.items = this.items.set(index, Immutable.fromJS(item))
   }
 }
 
