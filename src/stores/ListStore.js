@@ -5,8 +5,8 @@ import ListActions from '../actions/ListActions';
 
 class ListStore {
   constructor() {
-    this.items = Immutable.List();
-    this.auxItems = Immutable.List();
+    this.items = new Immutable.List();
+    this.auxItems = new Immutable.List();
 
     this.bindListeners({
       handleUpdateItems: ListActions.UPDATE_ITEMS,
@@ -32,7 +32,7 @@ class ListStore {
     this.auxItems = this.auxItems.delete(index);
   }
 
-  handleEditItem({index, item}) {
+  handleEditItem({ index, item }) {
     this.items = this.items.set(index, Immutable.fromJS(item));
     this.auxItems = this.auxItems.delete(index);
   }

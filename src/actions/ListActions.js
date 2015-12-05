@@ -14,7 +14,7 @@ class ListActions {
   }
 
   editItem(index, item) {
-    this.dispatch({index, item});
+    this.dispatch({ index, item });
   }
 
   searchItem(query) {

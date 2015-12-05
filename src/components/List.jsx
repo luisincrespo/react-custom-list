@@ -19,9 +19,9 @@ class List extends React.Component {
           searchText={this.props.searchText}
           ref={(ref) => this.searchBox = ref}/>
         <ul>
-          {this.props.items.isEmpty() ? (
+          {this.props.items.isEmpty() ? ( // eslint-disable-line
             <span>{this.props.emptyText}</span>
-          ) : this.props.items.map((item, i) => {
+          ) : this.props.items.map((item, i) => { // eslint-disable-line
             return (
               <Item
                 key={i}
@@ -31,7 +31,7 @@ class List extends React.Component {
                 removeText={this.props.removeText}
                 onEdit={this.props.onEdit}
                 editText={this.props.editText}/>
-            )
+            );
           })}
         </ul>
         <NewItem
