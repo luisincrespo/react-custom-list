@@ -2,13 +2,26 @@ import React from 'react';
 
 import Item from './Item';
 import NewItem from './NewItem';
+import SearchBox from './SearchBox';
 
 class List extends React.Component {
+  onAdd(item) {
+    this.searchBox.clearQuery();
+
+    this.props.onAdd(item);
+  }
+
   render() {
     return (
       <div>
+        <SearchBox
+          onSearch={this.props.onSearch}
+          searchText={this.props.searchText}
+          ref={(ref) => this.searchBox = ref}/>
         <ul>
-          {this.props.items.map((item, i) => {
+          {this.props.items.isEmpty() ? (
+            <span>{this.props.emptyText}</span>
+          ) : this.props.items.map((item, i) => {
             return (
               <Item
                 key={i}
@@ -22,7 +35,7 @@ class List extends React.Component {
           })}
         </ul>
         <NewItem
-          onAdd={this.props.onAdd}
+          onAdd={this.onAdd.bind(this)}
           addText={this.props.addText}/>
       </div>
     );
@@ -35,7 +48,14 @@ List.propTypes = {
   onRemove: React.PropTypes.func.isRequired,
   removeText: React.PropTypes.string,
   onEdit: React.PropTypes.func.isRequired,
-  editText: React.PropTypes.string
+  editText: React.PropTypes.string,
+  onSearch: React.PropTypes.func.isRequired,
+  searchText: React.PropTypes.string,
+  emptyText: React.PropTypes.string
+};
+
+List.defaultProps = {
+  emptyText: 'No items.'
 };
 
 export default List;

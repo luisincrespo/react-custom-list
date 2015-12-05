@@ -8,7 +8,7 @@ import List from './List';
 
 class ListContainer extends React.Component {
   componentDidMount() {
-    ListActions.updateItems(this.props.initialItems)
+    ListActions.updateItems(this.props.initialItems);
   }
 
   render() {
@@ -20,7 +20,10 @@ class ListContainer extends React.Component {
           onRemove={this.props.onRemove}
           removeText={this.props.removeText}
           onEdit={this.props.onEdit}
-          editText={this.props.editText}/>
+          editText={this.props.editText}
+          onSearch={this.props.onSearch}
+          searchText={this.props.searchText}
+          emptyText={this.props.emptyText}/>
       </AltContainer>
     );
   }
@@ -37,7 +40,10 @@ ListContainer.propTypes = {
   onRemove: React.PropTypes.func.isRequired,
   removeText: React.PropTypes.string,
   onEdit: React.PropTypes.func.isRequired,
-  editText: React.PropTypes.string
+  editText: React.PropTypes.string,
+  onSearch: React.PropTypes.func.isRequired,
+  searchText: React.PropTypes.string,
+  emptyText: React.PropTypes.string
 };
 
 export default ListContainer;
