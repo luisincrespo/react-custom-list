@@ -59,8 +59,8 @@ class Item extends React.Component {
               type="text"
               defaultValue={this.props.item.get('name')}
               onBlur={this.hideInput.bind(this)}
-              ref={(ref) => this.name = ref}
-              autoFocus/>
+              autoFocus
+              ref={(ref) => this.name = ref}/>
           </form>
         ) : (
           <span>

@@ -1,2 +1,2 @@
 # react-list
-Simple React Component for a list where you can add, update, delete and search items.
+React Component for a list where you can add, edit, remove and search items.
