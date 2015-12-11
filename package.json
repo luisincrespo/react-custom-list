@@ -1,6 +1,6 @@
 {
   "name": "@luisincrespo/react-list",
-  "version": "0.1.3",
+  "version": "0.1.0",
   "description": "React Component for a list where you can add, edit, remove and search items.",
   "main": "dist/react-list.js",
   "scripts": {
