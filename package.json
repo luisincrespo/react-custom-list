@@ -1,7 +1,7 @@
 {
   "name": "react-list",
   "version": "0.1.0",
-  "description": "Simple React Component for a list where you can add, update, delete and search items.",
+  "description": "React Component for a list where you can add, edit, remove and search items.",
   "main": "dist/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
