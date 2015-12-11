@@ -9,5 +9,7 @@ src
 .git
 .gitignore
 
+npm-debug.log
+
 webpack.condig.dev.js
 webpack.config.js

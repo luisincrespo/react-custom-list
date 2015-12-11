@@ -6,4 +6,6 @@ public
 
 src/index.dev.js
 
+npm-debug.log
+
 webpack.config.dev.js
