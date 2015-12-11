@@ -6,10 +6,7 @@ src
 
 .eslintrc
 
-.git
 .gitignore
-
-npm-debug.log
 
 webpack.config.dev.js
 webpack.config.js
