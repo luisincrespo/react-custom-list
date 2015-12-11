@@ -11,5 +11,5 @@ src
 
 npm-debug.log
 
-webpack.condig.dev.js
+webpack.config.dev.js
 webpack.config.js
