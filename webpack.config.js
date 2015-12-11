@@ -4,8 +4,10 @@ module.exports = {
   entry: './index',
 
   output: {
-    path: __dirname + '/dist',
-    filename: 'bundle.js'
+    library: 'ReactList',
+    libraryTarget: 'commonjs2',
+    filename: 'react-list.js',
+    path: __dirname + '/dist'
   },
 
   module: {
@@ -23,5 +25,14 @@ module.exports = {
 
   resolve: {
     extensions: ['', '.js', '.jsx']
+  },
+
+  externals: {
+    react: {
+      root: 'React',
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'react'
+    }
   }
 };
