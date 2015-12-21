@@ -11,6 +11,18 @@ class ListContainer extends React.Component {
     ListActions.updateItems(this.props.initialItems);
   }
 
+  addItem(item) {
+    ListActions.addItem(item);
+  }
+
+  removeItem(index) {
+    ListActions.removeItem(index);
+  }
+
+  editItem(index, newItem) {
+    ListActions.editItem(index, newItem);
+  }
+
   render() {
     return (
       <AltContainer store={ListStore}>
