@@ -4,14 +4,14 @@ class DefaultContent extends React.Component {
   render() {
     return (
       <li>
-        {this.props.item}
-        <span>
+        {this.props.item.toList().toJS()}
+        <div>
           <a
             href="#"
             onClick={this.props.onRemove}>
             Remove
           </a>
-        </span>
+        </div>
       </li>
     );
   }
