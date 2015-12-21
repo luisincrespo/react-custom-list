@@ -17,10 +17,9 @@ class ListContainer extends React.Component {
         <List
           onAdd={this.props.onAdd}
           addText={this.props.addText}
+          content={this.props.content}
           onRemove={this.props.onRemove}
-          removeText={this.props.removeText}
           onEdit={this.props.onEdit}
-          editText={this.props.editText}
           onSearch={this.props.onSearch}
           searchText={this.props.searchText}
           emptyText={this.props.emptyText}/>
@@ -30,17 +29,12 @@ class ListContainer extends React.Component {
 }
 
 ListContainer.propTypes = {
-  initialItems: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      name: React.PropTypes.string
-    })
-  ),
+  initialItems: React.PropTypes.arrayOf(React.PropTypes.object),
   onAdd: React.PropTypes.func.isRequired,
   addText: React.PropTypes.string,
+  content: React.PropTypes.element,
   onRemove: React.PropTypes.func.isRequired,
-  removeText: React.PropTypes.string,
   onEdit: React.PropTypes.func.isRequired,
-  editText: React.PropTypes.string,
   onSearch: React.PropTypes.func.isRequired,
   searchText: React.PropTypes.string,
   emptyText: React.PropTypes.string

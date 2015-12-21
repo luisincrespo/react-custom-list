@@ -2,14 +2,9 @@ import React from 'react';
 
 import ListActions from '../actions/ListActions';
 
-class Item extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      editing: false
-    };
-  }
+import DefaultContent from './DefaultContent';
 
+class Item extends React.Component {
   onRemove(event) {
     event.preventDefault();
 
@@ -18,70 +13,20 @@ class Item extends React.Component {
     this.props.onRemove(this.props.index, this.props.item.toJS());
   }
 
-  onEdit(event) {
+  onEdit(event, newItem) {
     event.preventDefault();
 
-    const item = {
-      name: this.name.value
-    };
+    ListActions.editItem(this.props.index, newItem);
 
-    ListActions.editItem(this.props.index, item);
-
-    this.props.onEdit(this.props.index, this.props.item.toJS(), item);
-
-    this.setState({
-      editing: false
-    });
-  }
-
-  showInput(event) {
-    event.preventDefault();
-
-    this.setState({
-      editing: true
-    });
-  }
-
-  hideInput(event) {
-    event.preventDefault();
-
-    this.setState({
-      editing: false
-    });
+    this.props.onEdit(this.props.index, this.props.item.toJS(), newItem);
   }
 
   render() {
     return (
-      <li>
-        {this.state.editing ? (
-          <form onSubmit={this.onEdit.bind(this)}>
-            <input
-              type="text"
-              defaultValue={this.props.item.get('name')}
-              onBlur={this.hideInput.bind(this)}
-              autoFocus
-              ref={(ref) => this.name = ref}/>
-          </form>
-        ) : (
-          <span>
-            {this.props.item.get('name')}
-          </span>
-        )}
-        {this.state.editing ? null : (
-          <span>
-            <a
-              href="#"
-              onClick={this.showInput.bind(this)}>
-              {this.props.editText}
-            </a>
-            <a
-              href="#"
-              onClick={this.onRemove.bind(this)}>
-              {this.props.removeText}
-            </a>
-          </span>
-        )}
-      </li>
+      <this.props.content
+        item={this.props.item}
+        onRemove={this.onRemove.bind(this)}
+        onEdit={this.onEdit.bind(this)}/>
     );
   }
 }
@@ -89,15 +34,15 @@ class Item extends React.Component {
 Item.propTypes = {
   item: React.PropTypes.object.isRequired,
   index: React.PropTypes.number.isRequired,
-  onRemove: React.PropTypes.func.isRequired,
-  removeText: React.PropTypes.string,
-  onEdit: React.PropTypes.func.isRequired,
-  editText: React.PropTypes.string
+  content: React.PropTypes.element,
+  onRemove: React.PropTypes.func,
+  onEdit: React.PropTypes.func
 };
 
 Item.defaultProps = {
-  removeText: 'Remove',
-  editText: 'Edit'
+  content: DefaultContent,
+  onRemove: () => null,
+  onEdit: () => null
 };
 
 export default Item;

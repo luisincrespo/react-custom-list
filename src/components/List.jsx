@@ -27,10 +27,9 @@ class List extends React.Component {
                 key={i}
                 item={item}
                 index={i}
+                content={this.props.content}
                 onRemove={this.props.onRemove}
-                removeText={this.props.removeText}
-                onEdit={this.props.onEdit}
-                editText={this.props.editText}/>
+                onEdit={this.props.onEdit}/>
             );
           })}
         </ul>
@@ -45,10 +44,9 @@ class List extends React.Component {
 List.propTypes = {
   onAdd: React.PropTypes.func.isRequired,
   addText: React.PropTypes.string,
+  content: React.PropTypes.element,
   onRemove: React.PropTypes.func.isRequired,
-  removeText: React.PropTypes.string,
   onEdit: React.PropTypes.func.isRequired,
-  editText: React.PropTypes.string,
   onSearch: React.PropTypes.func.isRequired,
   searchText: React.PropTypes.string,
   emptyText: React.PropTypes.string
