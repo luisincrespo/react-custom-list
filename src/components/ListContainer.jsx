@@ -27,8 +27,6 @@ class ListContainer extends React.Component {
     return (
       <AltContainer store={ListStore}>
         <List
-          onAdd={this.props.onAdd}
-          addText={this.props.addText}
           content={this.props.content}
           onRemove={this.props.onRemove}
           onEdit={this.props.onEdit}
@@ -42,8 +40,6 @@ class ListContainer extends React.Component {
 
 ListContainer.propTypes = {
   initialItems: React.PropTypes.arrayOf(React.PropTypes.object),
-  onAdd: React.PropTypes.func.isRequired,
-  addText: React.PropTypes.string,
   content: React.PropTypes.element,
   onRemove: React.PropTypes.func.isRequired,
   onEdit: React.PropTypes.func.isRequired,

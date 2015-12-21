@@ -1,16 +1,9 @@
 import React from 'react';
 
 import Item from './Item';
-import NewItem from './NewItem';
 import SearchBox from './SearchBox';
 
 class List extends React.Component {
-  onAdd(item) {
-    this.searchBox.clearQuery();
-
-    this.props.onAdd(item);
-  }
-
   render() {
     return (
       <div>
@@ -33,17 +26,12 @@ class List extends React.Component {
             );
           })}
         </ul>
-        <NewItem
-          onAdd={this.onAdd.bind(this)}
-          addText={this.props.addText}/>
       </div>
     );
   }
 }
 
 List.propTypes = {
-  onAdd: React.PropTypes.func.isRequired,
-  addText: React.PropTypes.string,
   content: React.PropTypes.element,
   onRemove: React.PropTypes.func.isRequired,
   onEdit: React.PropTypes.func.isRequired,
