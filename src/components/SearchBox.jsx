@@ -6,7 +6,7 @@ class SearchBox extends React.Component {
   onSearch(event) {
     event.preventDefault();
 
-    ListActions.searchItem(this.query.value);
+    ListActions.searchItem(this.query.value, this.props.searchPredicate);
 
     this.props.onSearch(this.query.value);
   }
@@ -14,7 +14,7 @@ class SearchBox extends React.Component {
   clearQuery() {
     this.query.value = '';
 
-    ListActions.searchItem(this.query.value);
+    ListActions.searchItem(this.query.value, this.props.searchPredicate);
   }
 
   render() {
@@ -31,6 +31,7 @@ class SearchBox extends React.Component {
 }
 
 SearchBox.propTypes = {
+  searchPredicate: React.PropTypes.func.isRequired,
   onSearch: React.PropTypes.func,
   searchText: React.PropTypes.string
 };

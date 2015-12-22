@@ -8,6 +8,7 @@ class List extends React.Component {
     return (
       <div>
         <SearchBox
+          searchPredicate={this.props.searchPredicate}
           onSearch={this.props.onSearch}
           searchText={this.props.searchText}
           ref={(ref) => this.searchBox = ref}/>
@@ -35,6 +36,7 @@ List.propTypes = {
   content: React.PropTypes.element,
   onRemove: React.PropTypes.func,
   onEdit: React.PropTypes.func,
+  searchPredicate: React.PropTypes.func.isRequired,
   onSearch: React.PropTypes.func,
   searchText: React.PropTypes.string,
   emptyText: React.PropTypes.string

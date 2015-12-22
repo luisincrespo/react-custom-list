@@ -17,8 +17,8 @@ class ListActions {
     this.dispatch({ index, item });
   }
 
-  searchItem(query) {
-    this.dispatch(query);
+  searchItem(query, predicate) {
+    this.dispatch({ query, predicate });
   }
 }
 

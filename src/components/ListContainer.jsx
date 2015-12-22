@@ -30,6 +30,7 @@ class ListContainer extends React.Component {
           content={this.props.content}
           onRemove={this.props.onRemove}
           onEdit={this.props.onEdit}
+          searchPredicate={this.props.searchPredicate}
           onSearch={this.props.onSearch}
           searchText={this.props.searchText}
           emptyText={this.props.emptyText}/>
@@ -43,6 +44,7 @@ ListContainer.propTypes = {
   content: React.PropTypes.element,
   onRemove: React.PropTypes.func,
   onEdit: React.PropTypes.func,
+  searchPredicate: React.PropTypes.func.isRequired,
   onSearch: React.PropTypes.func,
   searchText: React.PropTypes.string,
   emptyText: React.PropTypes.string

@@ -37,10 +37,8 @@ class ListStore {
     this.auxItems = this.auxItems.delete(index);
   }
 
-  handleSearchItem(query) {
-    this.items = this.auxItems.filter(
-      (item) => item.get('name').toLowerCase().startsWith(query.toLowerCase())
-    );
+  handleSearchItem({ query, predicate }) {
+    this.items = this.auxItems.filter((item) => predicate(item.toJS(), query));
   }
 }
 
