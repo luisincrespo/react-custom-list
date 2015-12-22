@@ -28,6 +28,7 @@ class ListContainer extends React.Component {
       <AltContainer store={ListStore}>
         <List
           itemSearchPredicate={this.props.itemSearchPredicate}
+          itemSearchContent={this.props.itemSearchContent}
           itemContent={this.props.itemContent}
           onItemRemove={this.props.onItemRemove}
           onItemEdit={this.props.onItemEdit}
@@ -41,6 +42,7 @@ class ListContainer extends React.Component {
 
 ListContainer.propTypes = {
   itemSearchPredicate: React.PropTypes.func.isRequired,
+  itemSearchContent: React.PropTypes.element,
   itemContent: React.PropTypes.element,
   initialItems: React.PropTypes.arrayOf(React.PropTypes.object),
   onItemRemove: React.PropTypes.func,

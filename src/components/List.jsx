@@ -1,17 +1,22 @@
 import React from 'react';
 
 import Item from './Item';
-import SearchBox from './SearchBox';
+import DefaultItemSearchContent from './DefaultItemSearchContent';
+
+import ListActions from '../actions/ListActions';
 
 class List extends React.Component {
+  onQueryChange(query) {
+    ListActions.searchItem(query, this.props.itemSearchPredicate);
+
+    this.props.onItemSearch(query);
+  }
+
   render() {
     return (
       <div>
-        <SearchBox
-          itemSearchPredicate={this.props.itemSearchPredicate}
-          onItemSearch={this.props.onItemSearch}
-          searchItemsText={this.props.searchItemsText}
-          ref={(ref) => this.searchBox = ref}/>
+        <this.props.itemSearchContent
+          onQueryChange={this.onQueryChange.bind(this)}/>
         <ul>
           {this.props.items.isEmpty() ? ( // eslint-disable-line
             <span>{this.props.emptyItemsText}</span>
@@ -34,6 +39,7 @@ class List extends React.Component {
 
 List.propTypes = {
   itemSearchPredicate: React.PropTypes.func.isRequired,
+  itemSearchContent: React.PropTypes.element,
   itemContent: React.PropTypes.element,
   onItemRemove: React.PropTypes.func,
   onItemEdit: React.PropTypes.func,
@@ -43,6 +49,8 @@ List.propTypes = {
 };
 
 List.defaultProps = {
+  itemSearchContent: DefaultItemSearchContent,
+  onItemSearch: () => null,
   emptyItemsText: 'No items.'
 };
 
