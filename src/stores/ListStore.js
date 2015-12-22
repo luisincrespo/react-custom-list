@@ -38,6 +38,10 @@ class ListStore {
   }
 
   handleSearchItem({ query, predicate }) {
+    if (query === '') {
+      this.items = this.auxItems.slice();
+      return;
+    }
     this.items = this.auxItems.filter((item) => predicate(item.toJS(), query));
   }
 }

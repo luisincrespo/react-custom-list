@@ -11,12 +11,6 @@ class SearchBox extends React.Component {
     this.props.onItemSearch(this.query.value);
   }
 
-  clearQuery() {
-    this.query.value = '';
-
-    ListActions.searchItem(this.query.value, this.props.itemSearchPredicate);
-  }
-
   render() {
     return (
       <form onSubmit={(event) => event.preventDefault()}>
