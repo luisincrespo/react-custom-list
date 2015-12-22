@@ -31,11 +31,12 @@ class SearchBox extends React.Component {
 }
 
 SearchBox.propTypes = {
-  onSearch: React.PropTypes.func.isRequired,
+  onSearch: React.PropTypes.func,
   searchText: React.PropTypes.string
 };
 
 SearchBox.defaultProps = {
+  onSearch: () => null,
   searchText: 'Search'
 };
 

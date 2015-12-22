@@ -33,9 +33,9 @@ class List extends React.Component {
 
 List.propTypes = {
   content: React.PropTypes.element,
-  onRemove: React.PropTypes.func.isRequired,
-  onEdit: React.PropTypes.func.isRequired,
-  onSearch: React.PropTypes.func.isRequired,
+  onRemove: React.PropTypes.func,
+  onEdit: React.PropTypes.func,
+  onSearch: React.PropTypes.func,
   searchText: React.PropTypes.string,
   emptyText: React.PropTypes.string
 };
