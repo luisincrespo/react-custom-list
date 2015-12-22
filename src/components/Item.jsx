@@ -5,17 +5,13 @@ import ListActions from '../actions/ListActions';
 import DefaultItemContent from './DefaultItemContent';
 
 class Item extends React.Component {
-  onRemove(event) {
-    event.preventDefault();
-
+  onRemove() {
     ListActions.removeItem(this.props.index);
 
     this.props.onItemRemove(this.props.index, this.props.item.toJS());
   }
 
-  onEdit(event, newItem) {
-    event.preventDefault();
-
+  onEdit(newItem) {
     ListActions.editItem(this.props.index, newItem);
 
     this.props.onItemEdit(this.props.index, this.props.item.toJS(), newItem);
