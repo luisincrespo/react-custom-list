@@ -1,6 +1,6 @@
 import React from 'react';
 
-class DefaultContent extends React.Component {
+class DefaultItemContent extends React.Component {
   render() {
     return (
       <li>
@@ -17,10 +17,10 @@ class DefaultContent extends React.Component {
   }
 }
 
-DefaultContent.propTypes = {
+DefaultItemContent.propTypes = {
   item: React.PropTypes.object.isRequired,
   onRemove: React.PropTypes.func.isRequired,
   onEdit: React.PropTypes.func.isRequired
 };
 
-export default DefaultContent;
+export default DefaultItemContent;

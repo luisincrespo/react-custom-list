@@ -2,7 +2,7 @@ import React from 'react';
 
 import ListActions from '../actions/ListActions';
 
-import DefaultContent from './DefaultContent';
+import DefaultItemContent from './DefaultItemContent';
 
 class Item extends React.Component {
   onRemove(event) {
@@ -40,7 +40,7 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
-  itemContent: DefaultContent,
+  itemContent: DefaultItemContent,
   onItemRemove: () => null,
   onItemEdit: () => null
 };
