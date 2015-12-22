@@ -8,22 +8,22 @@ class List extends React.Component {
     return (
       <div>
         <SearchBox
-          searchPredicate={this.props.searchPredicate}
-          onSearch={this.props.onSearch}
-          searchText={this.props.searchText}
+          itemSearchPredicate={this.props.itemSearchPredicate}
+          onItemSearch={this.props.onItemSearch}
+          searchItemsText={this.props.searchItemsText}
           ref={(ref) => this.searchBox = ref}/>
         <ul>
           {this.props.items.isEmpty() ? ( // eslint-disable-line
-            <span>{this.props.emptyText}</span>
+            <span>{this.props.emptyItemsText}</span>
           ) : this.props.items.map((item, i) => { // eslint-disable-line
             return (
               <Item
                 key={i}
                 item={item}
                 index={i}
-                content={this.props.content}
-                onRemove={this.props.onRemove}
-                onEdit={this.props.onEdit}/>
+                itemContent={this.props.itemContent}
+                onItemRemove={this.props.onItemRemove}
+                onItemEdit={this.props.onItemEdit}/>
             );
           })}
         </ul>
@@ -33,17 +33,17 @@ class List extends React.Component {
 }
 
 List.propTypes = {
-  content: React.PropTypes.element,
-  onRemove: React.PropTypes.func,
-  onEdit: React.PropTypes.func,
-  searchPredicate: React.PropTypes.func.isRequired,
-  onSearch: React.PropTypes.func,
-  searchText: React.PropTypes.string,
-  emptyText: React.PropTypes.string
+  itemSearchPredicate: React.PropTypes.func.isRequired,
+  itemContent: React.PropTypes.element,
+  onItemRemove: React.PropTypes.func,
+  onItemEdit: React.PropTypes.func,
+  onItemSearch: React.PropTypes.func,
+  searchItemsText: React.PropTypes.string,
+  emptyItemsText: React.PropTypes.string
 };
 
 List.defaultProps = {
-  emptyText: 'No items.'
+  emptyItemsText: 'No items.'
 };
 
 export default List;

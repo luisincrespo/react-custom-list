@@ -27,27 +27,27 @@ class ListContainer extends React.Component {
     return (
       <AltContainer store={ListStore}>
         <List
-          content={this.props.content}
-          onRemove={this.props.onRemove}
-          onEdit={this.props.onEdit}
-          searchPredicate={this.props.searchPredicate}
-          onSearch={this.props.onSearch}
-          searchText={this.props.searchText}
-          emptyText={this.props.emptyText}/>
+          itemSearchPredicate={this.props.itemSearchPredicate}
+          itemContent={this.props.itemContent}
+          onItemRemove={this.props.onItemRemove}
+          onItemEdit={this.props.onItemEdit}
+          onItemSearch={this.props.onItemSearch}
+          searchItemsText={this.props.searchItemsText}
+          emptyItemsText={this.props.emptyItemsText}/>
       </AltContainer>
     );
   }
 }
 
 ListContainer.propTypes = {
+  itemSearchPredicate: React.PropTypes.func.isRequired,
+  itemContent: React.PropTypes.element,
   initialItems: React.PropTypes.arrayOf(React.PropTypes.object),
-  content: React.PropTypes.element,
-  onRemove: React.PropTypes.func,
-  onEdit: React.PropTypes.func,
-  searchPredicate: React.PropTypes.func.isRequired,
-  onSearch: React.PropTypes.func,
-  searchText: React.PropTypes.string,
-  emptyText: React.PropTypes.string
+  onItemRemove: React.PropTypes.func,
+  onItemEdit: React.PropTypes.func,
+  onItemSearch: React.PropTypes.func,
+  searchItemsText: React.PropTypes.string,
+  emptyItemsText: React.PropTypes.string
 };
 
 export default ListContainer;

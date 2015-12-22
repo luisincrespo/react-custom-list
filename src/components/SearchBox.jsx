@@ -6,21 +6,21 @@ class SearchBox extends React.Component {
   onSearch(event) {
     event.preventDefault();
 
-    ListActions.searchItem(this.query.value, this.props.searchPredicate);
+    ListActions.searchItem(this.query.value, this.props.itemSearchPredicate);
 
-    this.props.onSearch(this.query.value);
+    this.props.onItemSearch(this.query.value);
   }
 
   clearQuery() {
     this.query.value = '';
 
-    ListActions.searchItem(this.query.value, this.props.searchPredicate);
+    ListActions.searchItem(this.query.value, this.props.itemSearchPredicate);
   }
 
   render() {
     return (
       <form onSubmit={(event) => event.preventDefault()}>
-        <label>{`${this.props.searchText}: `}</label>
+        <label>{`${this.props.searchItemsText}: `}</label>
         <input
           type="search"
           onChange={this.onSearch.bind(this)}
@@ -31,14 +31,14 @@ class SearchBox extends React.Component {
 }
 
 SearchBox.propTypes = {
-  searchPredicate: React.PropTypes.func.isRequired,
-  onSearch: React.PropTypes.func,
-  searchText: React.PropTypes.string
+  itemSearchPredicate: React.PropTypes.func.isRequired,
+  onItemSearch: React.PropTypes.func,
+  searchItemsText: React.PropTypes.string
 };
 
 SearchBox.defaultProps = {
-  onSearch: () => null,
-  searchText: 'Search'
+  onItemSearch: () => null,
+  searchItemsText: 'Search'
 };
 
 export default SearchBox;
