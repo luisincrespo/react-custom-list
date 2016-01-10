@@ -44,7 +44,6 @@ List.propTypes = {
   onItemRemove: React.PropTypes.func,
   onItemEdit: React.PropTypes.func,
   onItemSearch: React.PropTypes.func,
-  searchItemsText: React.PropTypes.string,
   emptyItemsText: React.PropTypes.string
 };
 
