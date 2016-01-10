@@ -15,8 +15,10 @@ class List extends React.Component {
   render() {
     return (
       <div>
-        <this.props.itemSearchContent
-          onQueryChange={this.onQueryChange.bind(this)}/>
+        {this.props.showItemSearch ? (
+          <this.props.itemSearchContent
+            onQueryChange={this.onQueryChange.bind(this)}/>
+        ) : null}
         <ul>
           {this.props.items.isEmpty() ? ( // eslint-disable-line
             <span>{this.props.emptyItemsText}</span>
@@ -40,6 +42,7 @@ class List extends React.Component {
 List.propTypes = {
   itemSearchPredicate: React.PropTypes.func.isRequired,
   itemSearchContent: React.PropTypes.element,
+  showItemSearch: React.PropTypes.bool,
   itemContent: React.PropTypes.element,
   onItemRemove: React.PropTypes.func,
   onItemEdit: React.PropTypes.func,
@@ -49,6 +52,7 @@ List.propTypes = {
 
 List.defaultProps = {
   itemSearchContent: DefaultItemSearchContent,
+  showItemSearch: true,
   onItemSearch: () => null,
   emptyItemsText: 'No items.'
 };
