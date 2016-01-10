@@ -2,6 +2,7 @@ import React from 'react';
 
 import Item from './Item';
 import DefaultItemSearchContent from './DefaultItemSearchContent';
+import DefaultItemsEmptyContent from './DefaultItemsEmptyContent';
 
 import ListActions from '../actions/ListActions';
 
@@ -21,7 +22,7 @@ class List extends React.Component {
         ) : null}
         <ul>
           {this.props.items.isEmpty() ? ( // eslint-disable-line
-            <span>{this.props.emptyItemsText}</span>
+            <this.props.itemsEmptyContent/>
           ) : this.props.items.map((item, i) => { // eslint-disable-line
             return (
               <Item
@@ -47,14 +48,14 @@ List.propTypes = {
   onItemRemove: React.PropTypes.func,
   onItemEdit: React.PropTypes.func,
   onItemSearch: React.PropTypes.func,
-  emptyItemsText: React.PropTypes.string
+  itemsEmptyContent: React.PropTypes.element
 };
 
 List.defaultProps = {
   itemSearchContent: DefaultItemSearchContent,
   showItemSearch: true,
   onItemSearch: () => null,
-  emptyItemsText: 'No items.'
+  itemsEmptyContent: DefaultItemsEmptyContent
 };
 
 export default List;

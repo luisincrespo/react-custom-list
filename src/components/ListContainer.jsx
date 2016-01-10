@@ -34,7 +34,7 @@ class ListContainer extends React.Component {
           onItemRemove={this.props.onItemRemove}
           onItemEdit={this.props.onItemEdit}
           onItemSearch={this.props.onItemSearch}
-          emptyItemsText={this.props.emptyItemsText}/>
+          itemsEmptyContent={this.props.itemsEmptyContent}/>
       </AltContainer>
     );
   }
@@ -49,7 +49,7 @@ ListContainer.propTypes = {
   onItemRemove: React.PropTypes.func,
   onItemEdit: React.PropTypes.func,
   onItemSearch: React.PropTypes.func,
-  emptyItemsText: React.PropTypes.string
+  itemsEmptyContent: React.PropTypes.element
 };
 
 export default ListContainer;
