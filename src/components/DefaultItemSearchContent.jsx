@@ -1,7 +1,7 @@
 import React from 'react';
 
 class DefaultItemSearchContent extends React.Component {
-  onSearch(event) {
+  _onSearch(event) {
     event.preventDefault();
 
     this.props.onQueryChange(this.query.value);
@@ -13,7 +13,7 @@ class DefaultItemSearchContent extends React.Component {
         <label>Search: </label>
         <input
           type="search"
-          onChange={this.onSearch.bind(this)}
+          onChange={this._onSearch.bind(this)}
           ref={(ref) => this.query = ref}/>
       </form>
     );

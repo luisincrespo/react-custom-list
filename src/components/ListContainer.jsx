@@ -11,14 +11,17 @@ class ListContainer extends React.Component {
     ListActions.updateItems(this.props.initialItems);
   }
 
+  // (item: object) => void
   addItem(item) {
     ListActions.addItem(item);
   }
 
+  // (index: number) => void
   removeItem(index) {
     ListActions.removeItem(index);
   }
 
+  // (index: number, newItem: object) => void
   editItem(index, newItem) {
     ListActions.editItem(index, newItem);
   }
@@ -42,13 +45,15 @@ class ListContainer extends React.Component {
 
 ListContainer.propTypes = {
   itemSearchPredicate: React.PropTypes.func.isRequired,
+    // (item: object, query: string) => bool
   itemSearchContent: React.PropTypes.element,
   showItemSearch: React.PropTypes.bool,
   itemContent: React.PropTypes.element,
   initialItems: React.PropTypes.arrayOf(React.PropTypes.object),
-  onItemRemove: React.PropTypes.func,
+  onItemRemove: React.PropTypes.func, // (index: number, item: object) => void
   onItemEdit: React.PropTypes.func,
-  onItemSearch: React.PropTypes.func,
+    // (index: number, oldItem: object, newItem: object) => void
+  onItemSearch: React.PropTypes.func, // (query: string) => void
   itemsEmptyContent: React.PropTypes.element
 };
 
