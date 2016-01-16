@@ -4,6 +4,8 @@ import Item from './Item';
 import DefaultItemSearchContent from './DefaultItemSearchContent';
 import DefaultItemsEmptyContent from './DefaultItemsEmptyContent';
 
+import CustomPropTypes from '../utils/propValidators';
+
 import ListActions from '../actions/ListActions';
 
 class List extends React.Component {
@@ -41,7 +43,7 @@ class List extends React.Component {
 }
 
 List.propTypes = {
-  itemSearchPredicate: React.PropTypes.func.isRequired,
+  itemSearchPredicate: CustomPropTypes.itemSearchPredicate,
     // (item: object, query: string) => bool
   itemSearchContent: React.PropTypes.element,
   showItemSearch: React.PropTypes.bool,
@@ -54,8 +56,9 @@ List.propTypes = {
 };
 
 List.defaultProps = {
+  itemSearchPredicate: () => true,
   itemSearchContent: DefaultItemSearchContent,
-  showItemSearch: true,
+  showItemSearch: false,
   onItemSearch: () => null,
   itemsEmptyContent: DefaultItemsEmptyContent
 };

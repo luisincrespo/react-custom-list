@@ -4,6 +4,8 @@ import React from 'react';
 import ListActions from '../actions/ListActions';
 import ListStore from '../stores/ListStore';
 
+import CustomPropTypes from '../utils/propValidators';
+
 import List from './List';
 
 class ListContainer extends React.Component {
@@ -44,7 +46,7 @@ class ListContainer extends React.Component {
 }
 
 ListContainer.propTypes = {
-  itemSearchPredicate: React.PropTypes.func.isRequired,
+  itemSearchPredicate: CustomPropTypes.itemSearchPredicate,
     // (item: object, query: string) => bool
   itemSearchContent: React.PropTypes.element,
   showItemSearch: React.PropTypes.bool,
