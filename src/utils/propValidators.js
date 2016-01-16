@@ -4,7 +4,7 @@ export default {
    */
   itemSearchPredicate(props, propName, componentName) {
     if (props.showItemSearch
-      && !(props[propName] && (props[propName] === 'function'))) {
+      && !(props[propName] && (typeof props[propName] === 'function'))) {
       return new Error(
         `Invalid prop \`${propName}\` supplied to \`${componentName}\`,`
           + ` expected a \`function\`.`
