@@ -43,22 +43,22 @@ class List extends React.Component {
 }
 
 List.propTypes = {
+  showItemSearch: React.PropTypes.bool,
+  itemSearchContent: React.PropTypes.element,
   itemSearchPredicate: CustomPropTypes.itemSearchPredicate,
     // (item: object, query: string) => bool
-  itemSearchContent: React.PropTypes.element,
-  showItemSearch: React.PropTypes.bool,
+  onItemSearch: React.PropTypes.func, // (query: string) => void
   itemContent: React.PropTypes.element,
   onItemRemove: React.PropTypes.func, // (index: number, item: object) => void
   onItemEdit: React.PropTypes.func,
     // (index: number, oldItem: object, newItem: object) => void
-  onItemSearch: React.PropTypes.func, // (query: string) => void
   itemsEmptyContent: React.PropTypes.element
 };
 
 List.defaultProps = {
-  itemSearchPredicate: () => true,
-  itemSearchContent: DefaultItemSearchContent,
   showItemSearch: false,
+  itemSearchContent: DefaultItemSearchContent,
+  itemSearchPredicate: () => true,
   onItemSearch: () => null,
   itemsEmptyContent: DefaultItemsEmptyContent
 };

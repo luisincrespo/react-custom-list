@@ -32,13 +32,13 @@ class ListContainer extends React.Component {
     return (
       <AltContainer store={ListStore}>
         <List
-          itemSearchPredicate={this.props.itemSearchPredicate}
-          itemSearchContent={this.props.itemSearchContent}
           showItemSearch={this.props.showItemSearch}
+          itemSearchContent={this.props.itemSearchContent}
+          itemSearchPredicate={this.props.itemSearchPredicate}
+          onItemSearch={this.props.onItemSearch}
           itemContent={this.props.itemContent}
           onItemRemove={this.props.onItemRemove}
           onItemEdit={this.props.onItemEdit}
-          onItemSearch={this.props.onItemSearch}
           itemsEmptyContent={this.props.itemsEmptyContent}/>
       </AltContainer>
     );
@@ -46,16 +46,16 @@ class ListContainer extends React.Component {
 }
 
 ListContainer.propTypes = {
+  initialItems: React.PropTypes.arrayOf(React.PropTypes.object),
+  showItemSearch: React.PropTypes.bool,
+  itemSearchContent: React.PropTypes.element,
   itemSearchPredicate: CustomPropTypes.itemSearchPredicate,
     // (item: object, query: string) => bool
-  itemSearchContent: React.PropTypes.element,
-  showItemSearch: React.PropTypes.bool,
+  onItemSearch: React.PropTypes.func, // (query: string) => void
   itemContent: React.PropTypes.element,
-  initialItems: React.PropTypes.arrayOf(React.PropTypes.object),
   onItemRemove: React.PropTypes.func, // (index: number, item: object) => void
   onItemEdit: React.PropTypes.func,
     // (index: number, oldItem: object, newItem: object) => void
-  onItemSearch: React.PropTypes.func, // (query: string) => void
   itemsEmptyContent: React.PropTypes.element
 };
 
