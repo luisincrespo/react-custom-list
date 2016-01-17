@@ -23,18 +23,18 @@ class ListStore {
   }
 
   handleAddItem(item) {
-    this.items = this.items.push(Immutable.fromJS(item));
+    this.items = this.auxItems.push(Immutable.fromJS(item));
     this.auxItems = this.auxItems.push(Immutable.fromJS(item));
   }
 
   handleRemoveItem(index) {
-    this.items = this.items.delete(index);
+    this.items = this.auxItems.delete(index);
     this.auxItems = this.auxItems.delete(index);
   }
 
   handleEditItem({ index, item }) {
-    this.items = this.items.set(index, Immutable.fromJS(item));
-    this.auxItems = this.auxItems.delete(index);
+    this.items = this.auxItems.set(index, Immutable.fromJS(item));
+    this.auxItems = this.auxItems.set(index, Immutable.fromJS(item));
   }
 
   handleSearchItem({ query, predicate }) {
