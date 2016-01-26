@@ -13,6 +13,11 @@ class ListContainer extends React.Component {
     ListActions.updateItems(this.props.initialItems);
   }
 
+  // () => number
+  getSize() {
+    return ListStore.getState().auxItems.size;
+  }
+
   // () => arrayOf(number)
   getKeys() {
     return ListStore.getState().auxItems.keySeq().toArray();
@@ -25,10 +30,36 @@ class ListContainer extends React.Component {
     });
   }
 
+  // () => arrayOf(object)
+  getItems() {
+    return ListStore.getState().auxItems.valueSeq().toJS();
+  }
+
   // (key: number) => object
   getItem(key) {
     const item = ListStore.getState().auxItems.get(key);
     return item ? item.toJS() : undefined;
+  }
+
+  // () => object
+  getFirstItem() {
+    const item = ListStore.getState().auxItems.first();
+    return item ? item.toJS() : undefined;
+  }
+
+  // () => object
+  getLastItem() {
+    const item = ListStore.getState().auxItems.last();
+    return item ? item.toJS() : undefined;
+  }
+
+  // () => void
+  clearItems() {
+    const items = this.getItems();
+
+    ListActions.clearItems();
+
+    this.props.onItemsClear(items);
   }
 
   // (item: object) => void
@@ -85,11 +116,13 @@ ListContainer.propTypes = {
   onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func,
     // (key: number, oldItem: object, newItem: object) => void
+  onItemsClear: React.PropTypes.func, // (items: arrayOf(object)) => void
   itemsEmptyContent: React.PropTypes.element
 };
 
 ListContainer.defaultProps = {
-  onItemAdd: () => null
+  onItemAdd: () => null,
+  onItemsClear: () => null
 };
 
 export default ListContainer;
