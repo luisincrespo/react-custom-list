@@ -19814,6 +19814,16 @@
 	      return _ListStore2.default.getState().auxItems.keySeq().toArray();
 	    }
 
+	    // (predicate: (item: object) => bool) => number
+
+	  }, {
+	    key: 'getKey',
+	    value: function getKey(predicate) {
+	      return _ListStore2.default.getState().auxItems.findKey(function (item) {
+	        return predicate(item.toJS());
+	      });
+	    }
+
 	    // (key: number) => object
 
 	  }, {
@@ -23948,8 +23958,8 @@
 	  function ListStore() {
 	    _classCallCheck(this, ListStore);
 
-	    this.items = new _immutable2.default.Map();
-	    this.auxItems = new _immutable2.default.Map();
+	    this.items = new _immutable2.default.OrderedMap();
+	    this.auxItems = new _immutable2.default.OrderedMap();
 
 	    this.bindListeners({
 	      handleUpdateItems: _ListActions2.default.UPDATE_ITEMS,
