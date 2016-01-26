@@ -13,9 +13,15 @@ class ListContainer extends React.Component {
     ListActions.updateItems(this.props.initialItems);
   }
 
+  // () => arrayOf(number)
+  getKeys() {
+    return ListStore.getState().auxItems.keySeq().toArray();
+  }
+
   // (key: number) => object
   getItem(key) {
-    return ListStore.getState().auxItems.get(key).toJS();
+    const item = ListStore.getState().auxItems.get(key);
+    return item ? item.toJS() : undefined;
   }
 
   // (item: object) => void

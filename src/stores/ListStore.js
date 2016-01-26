@@ -16,7 +16,7 @@ class ListStore {
       handleSearchItem: ListActions.SEARCH_ITEM
     });
 
-    this._generateKey = this._generateKey.bind(this)
+    this._generateKey = this._generateKey.bind(this);
   }
 
   _generateKey() {
@@ -49,8 +49,18 @@ class ListStore {
   }
 
   handleEditItem({ key, item }) {
-    this.items = this.auxItems.set(key, Immutable.fromJS(item));
-    this.auxItems = this.auxItems.set(key, Immutable.fromJS(item));
+    this.items = this.auxItems.update(key, (value) => {
+      if (!value) {
+        return undefined;
+      }
+      return value.mergeDeep(item);
+    });
+    this.auxItems = this.auxItems.update(key, (value) => {
+      if (!value) {
+        return undefined;
+      }
+      return value.mergeDeep(item);
+    });
   }
 
   handleSearchItem({ query, predicate }) {
