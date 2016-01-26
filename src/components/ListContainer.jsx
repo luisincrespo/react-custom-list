@@ -18,6 +18,13 @@ class ListContainer extends React.Component {
     return ListStore.getState().auxItems.keySeq().toArray();
   }
 
+  // (predicate: (item: object) => bool) => number
+  getKey(predicate) {
+    return ListStore.getState().auxItems.findKey((item) => {
+      return predicate(item.toJS());
+    });
+  }
+
   // (key: number) => object
   getItem(key) {
     const item = ListStore.getState().auxItems.get(key);
