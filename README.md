@@ -28,26 +28,26 @@ class DummyComponent extends React.Component {
     });
   }
 
-  removeFirstItem(event) {
-    event.preventDefault();
-
-    this.reactList.removeItem(0);
-  }
-
   editFirstItem(event) {
     event.preventDefault();
 
-    const newItem = {
-      name: 'New Name'
-    };
+    const firstKey = this.reactList.getKeys()[0]
 
-    this.reactList.editItem(0, newItem);
+    this.reactList.editItem(firstKey, { name: 'New Name' });
+  }
+
+  removeFirstItem(event) {
+    event.preventDefault();
+
+    const firstKey = this.reactList.getKeys()[0]
+
+    this.reactList.removeItem(firstKey);
   }
 
   render() {
     return (
       <div>
-        <ReactList
+        <ListContainer
           initialItems={[
             {name: 'Item 1'},
             {name: 'Item 2'},
@@ -58,14 +58,25 @@ class DummyComponent extends React.Component {
             (item, query) =>
             item.name.toLowerCase().startsWith(query.toLowerCase())
           }
+          onItemSearch={(query) => console.log(query)}
+          onItemAdd={(item) => console.log(item)}
+          onItemRemove={
+            (index, item) => {
+              console.log(index);
+              console.log(item);
+            }
+          }
+          onItemEdit={
+            (index, oldItem, newItem) => {
+              console.log(index);
+              console.log(oldItem);
+              console.log(newItem);
+            }
+          }
           ref={(ref) => this.reactList = ref}/>
         <button onClick={this.addItem.bind(this)}>Add Item</button>
-        <button onClick={this.removeFirstItem.bind(this)}>
-          Remove First Item
-        </button>
-        <button onClick={this.editFirstItem.bind(this)}>
-          Edit First Item
-        </button>
+        <button onClick={this.editFirstItem.bind(this)}>Edit 1st Item</button>
+        <button onClick={this.removeFirstItem.bind(this)}>Remove 1st Item</button>
       </div>
     );
   }
