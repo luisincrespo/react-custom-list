@@ -13,7 +13,8 @@ class ListStore {
       handleAddItem: ListActions.ADD_ITEM,
       handleRemoveItem: ListActions.REMOVE_ITEM,
       handleEditItem: ListActions.EDIT_ITEM,
-      handleSearchItem: ListActions.SEARCH_ITEM
+      handleSearchItem: ListActions.SEARCH_ITEM,
+      handleClearItems: ListActions.CLEAR_ITEMS
     });
 
     this._generateKey = this._generateKey.bind(this);
@@ -69,6 +70,11 @@ class ListStore {
       return;
     }
     this.items = this.auxItems.filter((item) => predicate(item.toJS(), query));
+  }
+
+  handleClearItems() {
+    this.items = this.auxItems.clear();
+    this.auxItems = this.auxItems.clear();
   }
 }
 

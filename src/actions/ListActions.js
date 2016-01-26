@@ -20,6 +20,10 @@ class ListActions {
   searchItem(query, predicate) {
     this.dispatch({ query, predicate });
   }
+
+  clearItems() {
+    this.dispatch();
+  }
 }
 
 export default Alt.createActions(ListActions);
