@@ -63,10 +63,20 @@ class ListContainer extends React.Component {
   }
 
   // (item: object) => void
-  addItem(item) {
+  pushItem(item) {
     ListActions.addItem(item);
 
-    this.props.onItemAdd(item);
+    this.props.onItemPush(item);
+  }
+
+  // (item: object) => void
+  unshiftItem(item) {
+    let items = this.getItems();
+    items = [item].concat(items);
+
+    ListActions.updateItems(items);
+
+    this.props.onItemUnshift(item);
   }
 
   // (key: number) => void
@@ -112,17 +122,19 @@ ListContainer.propTypes = {
     // (item: object, query: string) => bool
   onItemSearch: React.PropTypes.func, // (query: string) => void
   itemContent: React.PropTypes.element,
-  onItemAdd: React.PropTypes.func, // (item: object) => void
+  onItemsClear: React.PropTypes.func, // (items: arrayOf(object)) => void
+  onItemPush: React.PropTypes.func, // (item: object) => void
+  onItemUnshift: React.PropTypes.func, // (item: object) => void
   onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func,
     // (key: number, oldItem: object, newItem: object) => void
-  onItemsClear: React.PropTypes.func, // (items: arrayOf(object)) => void
   itemsEmptyContent: React.PropTypes.element
 };
 
 ListContainer.defaultProps = {
-  onItemAdd: () => null,
-  onItemsClear: () => null
+  onItemsClear: () => null,
+  onItemPush: () => null,
+  onItemUnshift: () => null
 };
 
 export default ListContainer;

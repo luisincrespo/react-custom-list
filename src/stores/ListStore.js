@@ -25,6 +25,9 @@ class ListStore {
   }
 
   handleUpdateItems(items) {
+    this.items = this.auxItems.clear();
+    this.auxItems = this.auxItems.clear();
+
     items.map((item) => {
       this.items = this.items.set(
         this._generateKey(), Immutable.fromJS(item)
