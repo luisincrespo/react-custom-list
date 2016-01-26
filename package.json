@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js --progress --colors",
+    "build:dev": "webpack --config webpack.config.dev.js --progress --colors",
     "serve": "webpack-dev-server --config webpack.config.dev.js --content-base public/"
   },
   "repository": {
