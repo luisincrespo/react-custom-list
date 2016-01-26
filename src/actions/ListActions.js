@@ -9,12 +9,12 @@ class ListActions {
     this.dispatch(item);
   }
 
-  removeItem(index) {
-    this.dispatch(index);
+  removeItem(key) {
+    this.dispatch(key);
   }
 
-  editItem(index, item) {
-    this.dispatch({ index, item });
+  editItem(key, item) {
+    this.dispatch({ key, item });
   }
 
   searchItem(query, predicate) {

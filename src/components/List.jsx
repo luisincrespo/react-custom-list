@@ -25,12 +25,12 @@ class List extends React.Component {
         <ul>
           {this.props.items.isEmpty() ? ( // eslint-disable-line
             <this.props.itemsEmptyContent/>
-          ) : this.props.items.map((item, i) => { // eslint-disable-line
+          ) : this.props.items.entrySeq().map(([key, item]) => { // eslint-disable-line
             return (
               <Item
-                key={i}
+                key={key}
                 item={item}
-                index={i}
+                itemKey={key}
                 itemContent={this.props.itemContent}
                 onItemRemove={this.props.onItemRemove}
                 onItemEdit={this.props.onItemEdit}/>
@@ -49,9 +49,9 @@ List.propTypes = {
     // (item: object, query: string) => bool
   onItemSearch: React.PropTypes.func, // (query: string) => void
   itemContent: React.PropTypes.element,
-  onItemRemove: React.PropTypes.func, // (index: number, item: object) => void
+  onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func,
-    // (index: number, oldItem: object, newItem: object) => void
+    // (key: number, oldItem: object, newItem: object) => void
   itemsEmptyContent: React.PropTypes.element
 };
 

@@ -7,16 +7,16 @@ import DefaultItemContent from './DefaultItemContent';
 class Item extends React.Component {
   // () => void
   _onRemove() {
-    ListActions.removeItem(this.props.index);
+    ListActions.removeItem(this.props.itemKey);
 
-    this.props.onItemRemove(this.props.index, this.props.item.toJS());
+    this.props.onItemRemove(this.props.itemKey, this.props.item.toJS());
   }
 
   // (newItem: object) => void
   _onEdit(newItem) {
-    ListActions.editItem(this.props.index, newItem);
+    ListActions.editItem(this.props.itemKey, newItem);
 
-    this.props.onItemEdit(this.props.index, this.props.item.toJS(), newItem);
+    this.props.onItemEdit(this.props.itemKey, this.props.item.toJS(), newItem);
   }
 
   render() {
@@ -31,11 +31,11 @@ class Item extends React.Component {
 
 Item.propTypes = {
   item: React.PropTypes.object.isRequired,
-  index: React.PropTypes.number.isRequired,
+  itemKey: React.PropTypes.number.isRequired,
   itemContent: React.PropTypes.element,
-  onItemRemove: React.PropTypes.func, // (index: number, item: object) => void
+  onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func
-    // (index: number, oldItem: object, newItem: object) => void
+    // (key: number, oldItem: object, newItem: object) => void
 };
 
 Item.defaultProps = {

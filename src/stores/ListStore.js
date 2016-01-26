@@ -5,8 +5,8 @@ import ListActions from '../actions/ListActions';
 
 class ListStore {
   constructor() {
-    this.items = new Immutable.List();
-    this.auxItems = new Immutable.List();
+    this.items = new Immutable.Map();
+    this.auxItems = new Immutable.Map();
 
     this.bindListeners({
       handleUpdateItems: ListActions.UPDATE_ITEMS,
@@ -15,26 +15,42 @@ class ListStore {
       handleEditItem: ListActions.EDIT_ITEM,
       handleSearchItem: ListActions.SEARCH_ITEM
     });
+
+    this._generateKey = this._generateKey.bind(this)
+  }
+
+  _generateKey() {
+    return this.auxItems.hashCode();
   }
 
   handleUpdateItems(items) {
-    this.items = Immutable.fromJS(items);
-    this.auxItems = Immutable.fromJS(items);
+    items.map((item) => {
+      this.items = this.items.set(
+        this._generateKey(), Immutable.fromJS(item)
+      );
+      this.auxItems = this.auxItems.set(
+        this._generateKey(), Immutable.fromJS(item)
+      );
+    });
   }
 
   handleAddItem(item) {
-    this.items = this.auxItems.push(Immutable.fromJS(item));
-    this.auxItems = this.auxItems.push(Immutable.fromJS(item));
+    this.items = this.auxItems.set(
+      this._generateKey(), Immutable.fromJS(item)
+    );
+    this.auxItems = this.auxItems.set(
+      this._generateKey(), Immutable.fromJS(item)
+    );
   }
 
-  handleRemoveItem(index) {
-    this.items = this.auxItems.delete(index);
-    this.auxItems = this.auxItems.delete(index);
+  handleRemoveItem(key) {
+    this.items = this.auxItems.delete(key);
+    this.auxItems = this.auxItems.delete(key);
   }
 
-  handleEditItem({ index, item }) {
-    this.items = this.auxItems.set(index, Immutable.fromJS(item));
-    this.auxItems = this.auxItems.set(index, Immutable.fromJS(item));
+  handleEditItem({ key, item }) {
+    this.items = this.auxItems.set(key, Immutable.fromJS(item));
+    this.auxItems = this.auxItems.set(key, Immutable.fromJS(item));
   }
 
   handleSearchItem({ query, predicate }) {

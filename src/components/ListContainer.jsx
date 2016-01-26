@@ -13,9 +13,9 @@ class ListContainer extends React.Component {
     ListActions.updateItems(this.props.initialItems);
   }
 
-  // (index: number) => object
-  getItem(index) {
-    return ListStore.getState().auxItems.get(index).toJS();
+  // (key: number) => object
+  getItem(key) {
+    return ListStore.getState().auxItems.get(key).toJS();
   }
 
   // (item: object) => void
@@ -25,22 +25,22 @@ class ListContainer extends React.Component {
     this.props.onItemAdd(item);
   }
 
-  // (index: number) => void
-  removeItem(index) {
-    const item = this.getItem(index);
+  // (key: number) => void
+  removeItem(key) {
+    const item = this.getItem(key);
 
-    ListActions.removeItem(index);
+    ListActions.removeItem(key);
 
-    this.props.onItemRemove(index, item);
+    this.props.onItemRemove(key, item);
   }
 
-  // (index: number, newItem: object) => void
-  editItem(index, newItem) {
-    const oldItem = this.getItem(index);
+  // (key: number, newItem: object) => void
+  editItem(key, newItem) {
+    const oldItem = this.getItem(key);
 
-    ListActions.editItem(index, newItem);
+    ListActions.editItem(key, newItem);
 
-    this.props.onItemEdit(index, oldItem, newItem);
+    this.props.onItemEdit(key, oldItem, newItem);
   }
 
   render() {
@@ -69,9 +69,9 @@ ListContainer.propTypes = {
   onItemSearch: React.PropTypes.func, // (query: string) => void
   itemContent: React.PropTypes.element,
   onItemAdd: React.PropTypes.func, // (item: object) => void
-  onItemRemove: React.PropTypes.func, // (index: number, item: object) => void
+  onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func,
-    // (index: number, oldItem: object, newItem: object) => void
+    // (key: number, oldItem: object, newItem: object) => void
   itemsEmptyContent: React.PropTypes.element
 };
 

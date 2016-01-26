@@ -10,7 +10,7 @@ class DefaultItemContent extends React.Component {
   render() {
     return (
       <li>
-        {this.props.item.toList().toJS()}
+        {JSON.stringify(this.props.item.toJS())}
         <div>
           <a
             href="#"
