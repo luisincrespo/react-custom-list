@@ -79,6 +79,36 @@ class ListContainer extends React.Component {
     this.props.onItemUnshift(item);
   }
 
+  // (item: object) => void
+  addItemBelow(key, item) {
+    const keys = this.getKeys();
+    let items = this.getItems();
+
+    items = items
+      .slice(0, keys.indexOf(key) + 1)
+      .concat([item])
+      .concat(items.slice(keys.indexOf(key) + 1));
+
+    ListActions.updateItems(items);
+
+    this.props.onItemAddBelow(key, item);
+  }
+
+  // (item: object) => void
+  addItemAbove(key, item) {
+    const keys = this.getKeys();
+    let items = this.getItems();
+
+    items = items
+      .slice(0, keys.indexOf(key))
+      .concat([item])
+      .concat(items.slice(keys.indexOf(key)));
+
+    ListActions.updateItems(items);
+
+    this.props.onItemAddAbove(key, item);
+  }
+
   // (key: number) => void
   removeItem(key) {
     const item = this.getItem(key);
@@ -125,6 +155,8 @@ ListContainer.propTypes = {
   onItemsClear: React.PropTypes.func, // (items: arrayOf(object)) => void
   onItemPush: React.PropTypes.func, // (item: object) => void
   onItemUnshift: React.PropTypes.func, // (item: object) => void
+  onItemAddBelow: React.PropTypes.func, // (key: number, item: object) => void
+  onItemAddAbove: React.PropTypes.func, // (key: number, item: object) => void
   onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func,
     // (key: number, oldItem: object, newItem: object) => void
@@ -134,7 +166,9 @@ ListContainer.propTypes = {
 ListContainer.defaultProps = {
   onItemsClear: () => null,
   onItemPush: () => null,
-  onItemUnshift: () => null
+  onItemUnshift: () => null,
+  onItemAddBelow: () => null,
+  onItemAddAbove: () => null
 };
 
 export default ListContainer;
