@@ -5,8 +5,8 @@ import ListActions from '../actions/ListActions';
 
 class ListStore {
   constructor() {
-    this.items = new Immutable.Map();
-    this.auxItems = new Immutable.Map();
+    this.items = new Immutable.OrderedMap();
+    this.auxItems = new Immutable.OrderedMap();
 
     this.bindListeners({
       handleUpdateItems: ListActions.UPDATE_ITEMS,
