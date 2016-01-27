@@ -100,9 +100,9 @@ class ListContainer extends React.Component {
     let items = this.getItems();
 
     items = items
-      .slice(0, keys.indexOf(key))
+      .slice(0, keys.indexOf(key) < 0 ? 0 : keys.indexOf(key))
       .concat([item])
-      .concat(items.slice(keys.indexOf(key)));
+      .concat(items.slice(keys.indexOf(key) < 0 ? 0 : keys.indexOf(key)));
 
     ListActions.updateItems(items);
 
