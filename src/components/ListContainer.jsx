@@ -54,6 +54,13 @@ class ListContainer extends React.Component {
   }
 
   // () => void
+  setItems(items) {
+    ListActions.setItems(items);
+
+    this.props.onItemsSet(items);
+  }
+
+  // () => void
   clearItems() {
     const items = this.getItems();
 
@@ -74,7 +81,7 @@ class ListContainer extends React.Component {
     let items = this.getItems();
     items = [item].concat(items);
 
-    ListActions.updateItems(items);
+    this.setItems(items);
 
     this.props.onItemUnshift(item);
   }
@@ -89,7 +96,7 @@ class ListContainer extends React.Component {
       .concat([item])
       .concat(items.slice(keys.indexOf(key) + 1));
 
-    ListActions.updateItems(items);
+    this.setItems(items);
 
     this.props.onItemAddBelow(key, item);
   }
@@ -104,7 +111,7 @@ class ListContainer extends React.Component {
       .concat([item])
       .concat(items.slice(keys.indexOf(key) < 0 ? 0 : keys.indexOf(key)));
 
-    ListActions.updateItems(items);
+    this.setItems(items);
 
     this.props.onItemAddAbove(key, item);
   }
@@ -152,6 +159,7 @@ ListContainer.propTypes = {
     // (item: object, query: string) => bool
   onItemSearch: React.PropTypes.func, // (query: string) => void
   itemContent: React.PropTypes.element,
+  onItemsSet: React.PropTypes.func, // (items: arrayOf(object)) => void
   onItemsClear: React.PropTypes.func, // (items: arrayOf(object)) => void
   onItemPush: React.PropTypes.func, // (item: object) => void
   onItemUnshift: React.PropTypes.func, // (item: object) => void
@@ -164,6 +172,7 @@ ListContainer.propTypes = {
 };
 
 ListContainer.defaultProps = {
+  onItemsSet: () => null,
   onItemsClear: () => null,
   onItemPush: () => null,
   onItemUnshift: () => null,
