@@ -9,7 +9,7 @@ class ListStore {
     this.auxItems = new Immutable.OrderedMap();
 
     this.bindListeners({
-      handleUpdateItems: ListActions.UPDATE_ITEMS,
+      handleSetItems: ListActions.SET_ITEMS,
       handleAddItem: ListActions.ADD_ITEM,
       handleRemoveItem: ListActions.REMOVE_ITEM,
       handleEditItem: ListActions.EDIT_ITEM,
@@ -24,7 +24,7 @@ class ListStore {
     return this.auxItems.hashCode();
   }
 
-  handleUpdateItems(items) {
+  handleSetItems(items) {
     this.items = this.auxItems.clear();
     this.auxItems = this.auxItems.clear();
 

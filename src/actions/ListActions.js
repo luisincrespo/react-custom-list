@@ -1,7 +1,7 @@
 import Alt from '../Alt';
 
 class ListActions {
-  updateItems(items) {
+  setItems(items) {
     this.dispatch(items);
   }
 

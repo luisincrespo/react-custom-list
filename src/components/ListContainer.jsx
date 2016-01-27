@@ -10,7 +10,7 @@ import List from './List';
 
 class ListContainer extends React.Component {
   componentDidMount() {
-    ListActions.updateItems(this.props.initialItems);
+    ListActions.setItems(this.props.initialItems);
   }
 
   // () => number
