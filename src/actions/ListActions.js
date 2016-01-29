@@ -1,3 +1,5 @@
+import { Promise } from 'es6-promise';
+
 import Alt from '../Alt';
 
 class ListActions {
@@ -14,7 +16,9 @@ class ListActions {
   }
 
   editItem(key, item) {
-    this.dispatch({ key, item });
+    return new Promise((resolve) => {
+      this.dispatch({ key, item, resolve });
+    });
   }
 
   searchItem(query, predicate) {

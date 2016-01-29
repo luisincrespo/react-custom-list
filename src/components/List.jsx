@@ -51,7 +51,7 @@ List.propTypes = {
   itemContent: React.PropTypes.element,
   onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func,
-    // (key: number, oldItem: object, newItem: object) => void
+    // (key: number, oldItem: object, editedItem: object) => void
   itemsEmptyContent: React.PropTypes.element
 };
 

@@ -10,7 +10,7 @@ import List from './List';
 
 class ListContainer extends React.Component {
   componentDidMount() {
-    ListActions.setItems(this.props.initialItems);
+    this.setItems(this.props.initialItems);
   }
 
   // () => number
@@ -53,11 +53,13 @@ class ListContainer extends React.Component {
     return item ? item.toJS() : undefined;
   }
 
-  // () => void
-  setItems(items) {
+  // (items: arrayOf(object), triggerCallback: bool) => void
+  setItems(items, triggerCallback = true) {
     ListActions.setItems(items);
 
-    this.props.onItemsSet(items);
+    if (triggerCallback) {
+      this.props.onItemsSet(items);
+    }
   }
 
   // () => void
@@ -81,7 +83,7 @@ class ListContainer extends React.Component {
     let items = this.getItems();
     items = [item].concat(items);
 
-    this.setItems(items);
+    this.setItems(items, false);
 
     this.props.onItemUnshift(item);
   }
@@ -97,7 +99,7 @@ class ListContainer extends React.Component {
       .concat([newItem])
       .concat(items.slice(keys.indexOf(key) + 1));
 
-    this.setItems(items);
+    this.setItems(items, false);
 
     this.props.onItemAddBelow(key, existingItem, newItem);
   }
@@ -113,7 +115,7 @@ class ListContainer extends React.Component {
       .concat([newItem])
       .concat(items.slice(keys.indexOf(key) < 0 ? 0 : keys.indexOf(key)));
 
-    this.setItems(items);
+    this.setItems(items, false);
 
     this.props.onItemAddAbove(key, existingItem, newItem);
   }
@@ -131,9 +133,11 @@ class ListContainer extends React.Component {
   editItem(key, newItem) {
     const oldItem = this.getItem(key);
 
-    ListActions.editItem(key, newItem);
-
-    this.props.onItemEdit(key, oldItem, newItem);
+    ListActions.editItem(key, newItem).then((editedItem) => {
+      this.props.onItemEdit(
+        key, oldItem, editedItem ? editedItem.toJS() : undefined
+      );
+    });
   }
 
   render() {
@@ -171,7 +175,7 @@ ListContainer.propTypes = {
     // (key: number, existingItem: object, newItem: object) => void
   onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func,
-    // (key: number, oldItem: object, newItem: object) => void
+    // (key: number, oldItem: object, editedItem: object) => void
   itemsEmptyContent: React.PropTypes.element
 };
 
@@ -181,7 +185,9 @@ ListContainer.defaultProps = {
   onItemPush: () => null,
   onItemUnshift: () => null,
   onItemAddBelow: () => null,
-  onItemAddAbove: () => null
+  onItemAddAbove: () => null,
+  onItemRemove: () => null,
+  onItemEdit: () => null
 };
 
 export default ListContainer;

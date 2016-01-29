@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "alt": "^0.17.9",
+    "es6-promise": "^3.0.2",
     "immutable": "^3.7.5"
   }
 }

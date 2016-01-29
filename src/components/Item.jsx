@@ -14,9 +14,13 @@ class Item extends React.Component {
 
   // (newItem: object) => void
   _onEdit(newItem) {
-    ListActions.editItem(this.props.itemKey, newItem);
+    const oldItem = this.props.item.toJS();
 
-    this.props.onItemEdit(this.props.itemKey, this.props.item.toJS(), newItem);
+    ListActions.editItem(this.props.itemKey, newItem).then((editedItem) => {
+      this.props.onItemEdit(
+        this.props.itemKey, oldItem, editedItem ? editedItem.toJS() : undefined
+      );
+    });
   }
 
   render() {
@@ -35,7 +39,7 @@ Item.propTypes = {
   itemContent: React.PropTypes.element,
   onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func
-    // (key: number, oldItem: object, newItem: object) => void
+    // (key: number, oldItem: object, editedItem: object) => void
 };
 
 Item.defaultProps = {

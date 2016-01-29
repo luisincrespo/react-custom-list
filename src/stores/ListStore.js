@@ -52,7 +52,7 @@ class ListStore {
     this.auxItems = this.auxItems.delete(key);
   }
 
-  handleEditItem({ key, item }) {
+  handleEditItem({ key, item, resolve }) {
     this.items = this.auxItems.update(key, (value) => {
       if (!value) {
         return undefined;
@@ -65,6 +65,7 @@ class ListStore {
       }
       return value.mergeDeep(item);
     });
+    resolve(this.auxItems.get(key));
   }
 
   handleSearchItem({ query, predicate }) {
