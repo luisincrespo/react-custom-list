@@ -86,34 +86,36 @@ class ListContainer extends React.Component {
     this.props.onItemUnshift(item);
   }
 
-  // (item: object) => void
-  addItemBelow(key, item) {
+  // (key: number, newItem: object) => void
+  addItemBelow(key, newItem) {
+    const existingItem = this.getItem(key);
     const keys = this.getKeys();
     let items = this.getItems();
 
     items = items
       .slice(0, keys.indexOf(key) + 1)
-      .concat([item])
+      .concat([newItem])
       .concat(items.slice(keys.indexOf(key) + 1));
 
     this.setItems(items);
 
-    this.props.onItemAddBelow(key, item);
+    this.props.onItemAddBelow(key, existingItem, newItem);
   }
 
-  // (item: object) => void
-  addItemAbove(key, item) {
+  // (key: number, newItem: object) => void
+  addItemAbove(key, newItem) {
+    const existingItem = this.getItem(key);
     const keys = this.getKeys();
     let items = this.getItems();
 
     items = items
       .slice(0, keys.indexOf(key) < 0 ? 0 : keys.indexOf(key))
-      .concat([item])
+      .concat([newItem])
       .concat(items.slice(keys.indexOf(key) < 0 ? 0 : keys.indexOf(key)));
 
     this.setItems(items);
 
-    this.props.onItemAddAbove(key, item);
+    this.props.onItemAddAbove(key, existingItem, newItem);
   }
 
   // (key: number) => void
@@ -163,8 +165,10 @@ ListContainer.propTypes = {
   onItemsClear: React.PropTypes.func, // (items: arrayOf(object)) => void
   onItemPush: React.PropTypes.func, // (item: object) => void
   onItemUnshift: React.PropTypes.func, // (item: object) => void
-  onItemAddBelow: React.PropTypes.func, // (key: number, item: object) => void
-  onItemAddAbove: React.PropTypes.func, // (key: number, item: object) => void
+  onItemAddBelow: React.PropTypes.func,
+    // (key: number, existingItem: object, newItem: object) => void
+  onItemAddAbove: React.PropTypes.func,
+    // (key: number, existingItem: object, newItem: object) => void
   onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func,
     // (key: number, oldItem: object, newItem: object) => void
