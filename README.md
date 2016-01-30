@@ -23,7 +23,7 @@ class DummyComponent extends React.Component {
   resetItems(event) {
     event.preventDefault();
 
-    this.listContainer.setItems([
+    this.reactList.setItems([
       {name: 'Item 1'},
       {name: 'Item 2'},
       {name: 'Item 3'}
@@ -105,11 +105,7 @@ class DummyComponent extends React.Component {
               console.log(newItems);
             }
           }
-          onItemsClear={
-            (items) => {
-              console.log(items);
-            }
-          }
+          onItemsClear={(items) => console.log(items)}
           onItemPush={(item) => console.log(item)}
           onItemUnshift={(item) => console.log(item)}
           onItemAddBelow={
