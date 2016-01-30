@@ -20,6 +20,16 @@ import ReactDOM from 'react-dom';
 import ReactList from '@luisincrespo/react-list';
 
 class DummyComponent extends React.Component {
+  resetItems(event) {
+    event.preventDefault();
+
+    this.listContainer.setItems([
+      {name: 'Item 1'},
+      {name: 'Item 2'},
+      {name: 'Item 3'}
+    ]);
+  }
+
   clearItems(event) {
     event.preventDefault();
 
@@ -89,6 +99,12 @@ class DummyComponent extends React.Component {
             item.name.toLowerCase().startsWith(query.toLowerCase())
           }
           onItemSearch={(query) => console.log(query)}
+          onItemsSet={
+            (oldItems, newItems) => {
+              console.log(oldItems);
+              console.log(newItems);
+            }
+          }
           onItemsClear={
             (items) => {
               console.log(items);
@@ -97,15 +113,17 @@ class DummyComponent extends React.Component {
           onItemPush={(item) => console.log(item)}
           onItemUnshift={(item) => console.log(item)}
           onItemAddBelow={
-            (key, item) => {
+            (key, existingItem, newItem) => {
               console.log(key);
-              console.log(item);
+              console.log(existingItem);
+              console.log(newItem);
             }
           }
           onItemAddAbove={
-            (key, item) => {
+            (key, existingItem, newItem) => {
               console.log(key);
-              console.log(item);
+              console.log(existingItem);
+              console.log(newItem);
             }
           }
           onItemRemove={
@@ -115,13 +133,14 @@ class DummyComponent extends React.Component {
             }
           }
           onItemEdit={
-            (key, oldItem, newItem) => {
+            (key, oldItem, editedItem) => {
               console.log(key);
               console.log(oldItem);
-              console.log(newItem);
+              console.log(editedItem);
             }
           }
           ref={(ref) => this.reactList = ref}/>
+        <button onClick={this.resetItems.bind(this)}>Reset Items</button>
         <button onClick={this.clearItems.bind(this)}>Clear Items</button>
         <button onClick={this.pushItem.bind(this)}>Push Item</button>
         <button onClick={this.unshiftItem.bind(this)}>Unshift Item</button>
@@ -153,12 +172,8 @@ Returns the amount of items in the list.
 ### getKeys() => array&lt;number&gt;
 Returns the key for every item in the list, in the same order as they appear.
 
-### getKey(predicate: func) => number
-Returns the key for the first item that fulfills the given *predicate*, which must be a function of the form:
-
-* predicate(item: object) => bool
-
-If no item meets the condition, `undefined` is returned.
+### getKey(predicate: (item: object) => bool) => number
+Returns the key for the first item that fulfills the given *predicate*. If no item meets the condition, `undefined` is returned.
 
 ### getItems() => array&lt;object&gt;
 Returns every item in the list, in the same order as they appear.
@@ -172,6 +187,9 @@ Returns the first item of the list if it exists, `undefined` otherwise.
 ### getLastItem() => object
 Returns the last item of the list if it exists, `undefined` otherwise.
 
+### setItems(newItems: array&lt;object&gt;) => void
+Replaces the whole list with the given *newItems*.
+
 ### clearItems() => void
 Removes all items from the list.
 
@@ -181,28 +199,28 @@ Adds the given *item* to the end of the list.
 ### unshiftItem(item: object) => void
 Adds the given *item* to the beginning of the list.
 
-### addItemBelow(key: number, item: object) => void
-Adds the given *item* directly below the item that corresponds to the given *key*. If the *key* does not exist, the *item* will be added at the beginning of the list.
+### addItemBelow(key: number, newItem: object) => void
+Adds the given *newItem* directly below the item that corresponds to the given *key*. If the *key* doesn't exist, the *newItem* will be added at the beginning of the list.
 
-### addItemAbove(key: number, item: object) => void
-Adds the given *item* directly above the item that corresponds to the given *key*. If the *key* does not exist, the *item* will be added at the beginning of the list.
+### addItemAbove(key: number, newItem: object) => void
+Adds the given *newItem* directly above the item that corresponds to the given *key*. If the *key* doesn't exist, the *newItem* will be added at the beginning of the list.
 
 ### removeItem(key: number) => void
 Removes the item corresponding to the given *key* if it exists.
 
-### editItem(key: number, item: object) => void
-Edits the item corresponding to the given *key* if it exists, merging with the content of the given *item*.
+### editItem(key: number, newItem: object) => void
+Edits the item corresponding to the given *key* if it exists, merging it with the content of the *newItem*.
 
 ## Props
 
-### initialItems: array&lt;object&gt;
-Specifies initial items to be rendered.
+### initialItems: array&lt;object&gt; (OPTIONAL)
+Specifies initial items for the list.
 
-### showItemSearch: bool
-Specifies wether or not to show the search widget. Defaults to `false`.
+### showItemSearch: bool (DEFAULTS to `false`)
+Specifies whether or not to show the search widget.
 
-### itemSearchContent: React Component
-Component to be used to render the search widget. Defaults to:
+### itemSearchContent: React Component (DEFAULTS to `DefaultItemSearchContent`)
+Specifies a component to be used to render the search widget. Defaults to:
 
 ``` javascript
 class DefaultItemSearchContent extends React.Component {
@@ -229,17 +247,18 @@ DefaultItemSearchContent.propTypes = {
   onQueryChange: React.PropTypes.func.isRequired
 };
 ```
+The following props will be available for the component:
 
-**onQueryChange(query: string) => void** is available as prop and must be called in order to filter the list.
+* **onQueryChange(query: string) => void**: Must be called to actually filter the list. The `itemSearchPredicate` (defined below) will be used to filter the list with the given *query*.
 
-### itemSearchPredicate(item: object, query: string) => bool
-If *showItemSearch* is set to true, this prop must be specified.
+### itemSearchPredicate(item: object, query: string) => bool (REQUIRED if `showItemSearch` is set to `true`)
+Specifies a predicate to be used when filtering the list.
 
-### onItemSearch(query: string) => void
-This callback will be fired whenever the **onQueryChange(query: string) => void** prop in the search widget is called. The *query* is received as a parameter.
+### onItemSearch(query: string) => void (OPTIONAL)
+Specifies a callback to be fired whenever the list is filtered with the given *query*.
 
-### itemContent: React Component
-Component to be used to render each item in the list. Defaults to:
+### itemContent: React Component (DEFAULTS to `DefaultItemContent`)
+Specifies a component to be used to render each item in the list. Defaults to:
 
 ``` javascript
 class DefaultItemContent extends React.Component {
@@ -272,31 +291,37 @@ DefaultItemContent.propTypes = {
 };
 ```
 
-Both **onRemove() => void** and **onEdit(newItem: object) => void** are available as props and can be used in order to remove or edit items correspondingly.
+The following props will be available for the component:
 
-### onItemsClear(items: array&lt;object&gt;) => void
-This callback will be fired whenever the list is cleared. The cleared *items* are received as a parameter.
+* **onRemove() => void**: Can be called to remove the item from the list.
+* **onEdit(newItem: object) => void**: Can be called to edit the item with the content specified in the *newItem*.
 
-### onItemPush(item: object) => void
-This callback will be fired whenever an *item* is pushed to the list. The pushed *item* is received as a parameter.
+### onItemsSet(oldItems: array&lt;object&gt;, newItems: array&lt;object&gt;) => void (OPTIONAL)
+Specifies a callback to be fired whenever the list is replaced, receiving the *oldItems* and *newItems* as parameters.
 
-### onItemUnshift(item: object) => void
-This callback will be fired whenever an *item* is unshifted to the list. The unshifted *item* is received as a parameter.
+### onItemsClear(items: array&lt;object&gt;) => void (OPTIONAL)
+Specifies a callback to be fired whenever the list is cleared, receiving the cleared *items* as a parameter.
 
-### onItemAddBelow(key: number, item: object) => void
-This callback will be fired whenever an *item* is added below another one in the list. The *item* added along with the *key* of the existing item are received as parameters.
+### onItemPush(item: object) => void (OPTIONAL)
+Specifies a callback to be fired whenever an *item* is pushed to the list.
 
-### onItemAddAbove(key: number, item: object) => void
-This callback will be fired whenever an *item* is added above another one in the list. The *item* added along with the *key* of the existing item are received as parameters.
+### onItemUnshift(item: object) => void (OPTIONAL)
+Specifies a callback to be fired whenever an *item* is unshifted to the list.
 
-### onItemRemove(key: number, item: object) => void
-This callback will be fired whenever an *item* is removed from the list. The *item* removed along with its *key* are received as parameters.
+### onItemAddBelow(key: number, existingItem: object, newItem: object) => void (OPTIONAL)
+Specifies a callback to be fired whenever a *newItem* is added below another one (*existingItem* corresponding to the given *key*) in the list.
 
-### onItemEdit(key: number, oldItem: object, newItem: object) => void
-This callback will be fired whenever an *item* is edited. The *oldItem* along with its *key* and the *newItem* are received as parameters.
+### onItemAddAbove(key: number, existingItem: object, newItem: object) => void (OPTIONAL)
+Specifies a callback to be fired whenever a *newItem* is added above another one (*existingItem* corresponding to the given *key*) in the list.
 
-### itemsEmptyContent: React Component
-Component to be used to render the content to show when there are no items in the list. Defaults to:
+### onItemRemove(key: number, item: object) => void (OPTIONAL)
+Specifies a callback to be fired whenever an *item* is removed from the list, receiving also its *key* as a parameter.
+
+### onItemEdit(key: number, oldItem: object, editedItem: object) => void (OPTIONAL)
+Specifies a callback to be fired whenever an item (*oldItem* corresponding to the given *key*) is edited, receiving also the new content (*editedItem*) as a parameter.
+
+### itemsEmptyContent: React Component (DEFAULTS to `DefaultItemsEmptyContent`)
+Specifies a component to be used to render the widget to show when the list is empty. Defaults to:
 
 ``` javascript
 class DefaultItemsEmptyContent extends React.Component {
