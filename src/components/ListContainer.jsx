@@ -53,12 +53,14 @@ class ListContainer extends React.Component {
     return item ? item.toJS() : undefined;
   }
 
-  // (items: arrayOf(object), triggerCallback: bool) => void
-  setItems(items, triggerCallback = true) {
-    ListActions.setItems(items);
+  // (newItems: arrayOf(object), triggerCallback: bool) => void
+  setItems(newItems, triggerCallback = true) {
+    const oldItems = this.getItems();
+
+    ListActions.setItems(newItems);
 
     if (triggerCallback) {
-      this.props.onItemsSet(items);
+      this.props.onItemsSet(oldItems, newItems);
     }
   }
 
@@ -165,7 +167,8 @@ ListContainer.propTypes = {
     // (item: object, query: string) => bool
   onItemSearch: React.PropTypes.func, // (query: string) => void
   itemContent: React.PropTypes.element,
-  onItemsSet: React.PropTypes.func, // (items: arrayOf(object)) => void
+  onItemsSet: React.PropTypes.func,
+    // (oldItems: arrayOf(object), newItems: arrayOf(object)) => void
   onItemsClear: React.PropTypes.func, // (items: arrayOf(object)) => void
   onItemPush: React.PropTypes.func, // (item: object) => void
   onItemUnshift: React.PropTypes.func, // (item: object) => void
