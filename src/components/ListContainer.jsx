@@ -55,11 +55,12 @@ class ListContainer extends React.Component {
 
   // (newItems: arrayOf(object), triggerCallback: bool) => void
   setItems(newItems, triggerCallback = true) {
-    const oldItems = this.getItems();
-
-    ListActions.setItems(newItems).then((items) => {
+    ListActions.setItems(newItems).then(({ oldItems, items }) => {
       if (triggerCallback) {
-        this.props.onItemsSet(oldItems, items.valueSeq().toJS());
+        this.props.onItemsSet(
+          oldItems.valueSeq().toJS(),
+          items.valueSeq().toJS()
+        );
       }
     });
   }

@@ -25,6 +25,7 @@ class ListStore {
   }
 
   handleSetItems({ items, resolve }) {
+    const oldItems = this.auxItems.slice();
     this.items = this.auxItems.clear();
     this.auxItems = this.auxItems.clear();
 
@@ -37,7 +38,7 @@ class ListStore {
       );
     });
 
-    resolve(this.auxItems.slice());
+    resolve({ oldItems, items: this.auxItems.slice() });
   }
 
   handleAddItem({ item, resolve }) {
@@ -97,11 +98,11 @@ class ListStore {
   }
 
   handleClearItems(resolve) {
-    const clearedItems = this.auxItems.slice();
+    const items = this.auxItems.slice();
     this.items = this.auxItems.clear();
     this.auxItems = this.auxItems.clear();
 
-    resolve(clearedItems);
+    resolve(items);
   }
 }
 
