@@ -10,7 +10,9 @@ class ListActions {
   }
 
   addItem(item) {
-    this.dispatch(item);
+    return new Promise((resolve) => {
+      this.dispatch({ item, resolve });
+    });
   }
 
   removeItem(key) {

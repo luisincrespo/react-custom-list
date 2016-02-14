@@ -75,9 +75,9 @@ class ListContainer extends React.Component {
 
   // (item: object) => void
   pushItem(item) {
-    ListActions.addItem(item);
-
-    this.props.onItemPush(item);
+    ListActions.addItem(item).then((addedItem) => {
+      this.props.onItemPush(addedItem.toJS());
+    });
   }
 
   // (item: object) => void

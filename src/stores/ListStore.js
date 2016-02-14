@@ -40,14 +40,14 @@ class ListStore {
     resolve(this.auxItems.slice());
   }
 
-  handleAddItem(item) {
-    this.items = this.auxItems.set(
-      this._generateKey(), Immutable.fromJS(item)
-    );
+  handleAddItem({ item, resolve }) {
+    this.items = this.auxItems.set(this._generateKey(), Immutable.fromJS(item));
 
     this.auxItems = this.auxItems.set(
       this._generateKey(), Immutable.fromJS(item)
     );
+
+    resolve(this.auxItems.last());
   }
 
   handleRemoveItem(key) {
