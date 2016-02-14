@@ -24,7 +24,7 @@ class ListStore {
     return this.auxItems.hashCode();
   }
 
-  handleSetItems(items) {
+  handleSetItems({ items, resolve }) {
     this.items = this.auxItems.clear();
     this.auxItems = this.auxItems.clear();
 
@@ -36,12 +36,15 @@ class ListStore {
         this._generateKey(), Immutable.fromJS(item)
       );
     });
+
+    resolve(this.auxItems.slice());
   }
 
   handleAddItem(item) {
     this.items = this.auxItems.set(
       this._generateKey(), Immutable.fromJS(item)
     );
+
     this.auxItems = this.auxItems.set(
       this._generateKey(), Immutable.fromJS(item)
     );
@@ -59,12 +62,14 @@ class ListStore {
       }
       return value.mergeDeep(item);
     });
+
     this.auxItems = this.auxItems.update(key, (value) => {
       if (!value) {
         return undefined;
       }
       return value.mergeDeep(item);
     });
+
     resolve(this.auxItems.get(key));
   }
 
@@ -73,6 +78,7 @@ class ListStore {
       this.items = this.auxItems.slice();
       return;
     }
+
     this.items = this.auxItems.filter((item) => predicate(item.toJS(), query));
   }
 

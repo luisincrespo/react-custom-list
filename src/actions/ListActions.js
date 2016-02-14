@@ -4,7 +4,9 @@ import Alt from '../Alt';
 
 class ListActions {
   setItems(items) {
-    this.dispatch(items);
+    return new Promise((resolve) => {
+      this.dispatch({ items, resolve });
+    });
   }
 
   addItem(item) {
