@@ -34,7 +34,9 @@ class ListActions {
   }
 
   clearItems() {
-    this.dispatch();
+    return new Promise((resolve) => {
+      this.dispatch(resolve);
+    })
   }
 }
 

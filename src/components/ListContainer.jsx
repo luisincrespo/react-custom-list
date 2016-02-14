@@ -66,11 +66,9 @@ class ListContainer extends React.Component {
 
   // () => void
   clearItems() {
-    const items = this.getItems();
-
-    ListActions.clearItems();
-
-    this.props.onItemsClear(items);
+    ListActions.clearItems().then((items) => {
+      this.props.onItemsClear(items.valueSeq().toJS());
+    });
   }
 
   // (item: object) => void

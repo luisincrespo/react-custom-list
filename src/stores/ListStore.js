@@ -96,9 +96,12 @@ class ListStore {
     );
   }
 
-  handleClearItems() {
+  handleClearItems(resolve) {
+    const clearedItems = this.auxItems.slice();
     this.items = this.auxItems.clear();
     this.auxItems = this.auxItems.clear();
+
+    resolve(clearedItems);
   }
 }
 
