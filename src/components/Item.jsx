@@ -7,9 +7,13 @@ import DefaultItemContent from './DefaultItemContent';
 class Item extends React.Component {
   // () => void
   _onRemove() {
-    ListActions.removeItem(this.props.itemKey);
-
-    this.props.onItemRemove(this.props.itemKey, this.props.item.toJS());
+    ListActions.removeItem(this.props.itemKey).then(
+      ({ removedKey, removedItem }) => {
+        this.props.onItemRemove(
+          removedKey, removedItem ? removedItem.toJS() : undefined
+        );
+      }
+    );
   }
 
   // (newItem: object) => void

@@ -124,11 +124,11 @@ class ListContainer extends React.Component {
 
   // (key: number) => void
   removeItem(key) {
-    const item = this.getItem(key);
-
-    ListActions.removeItem(key);
-
-    this.props.onItemRemove(key, item);
+    ListActions.removeItem(key).then(({ removedKey, removedItem }) => {
+      this.props.onItemRemove(
+        removedKey, removedItem ? removedItem.toJS() : undefined
+      );
+    });
   }
 
   // (key: number, newItem: object) => void

@@ -16,7 +16,9 @@ class ListActions {
   }
 
   removeItem(key) {
-    this.dispatch(key);
+    return new Promise((resolve) => {
+      this.dispatch({ key, resolve });
+    });
   }
 
   editItem(key, item) {

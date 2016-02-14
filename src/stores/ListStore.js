@@ -50,9 +50,13 @@ class ListStore {
     resolve(this.auxItems.last());
   }
 
-  handleRemoveItem(key) {
+  handleRemoveItem({ key, resolve }) {
     this.items = this.auxItems.delete(key);
+
+    const removedItem = this.auxItems.get(key);
     this.auxItems = this.auxItems.delete(key);
+
+    resolve({ removedKey: key, removedItem });
   }
 
   handleEditItem({ key, item, resolve }) {
