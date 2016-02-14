@@ -67,6 +67,7 @@ class ListStore {
       return value.mergeDeep(item);
     });
 
+    const oldItem = this.auxItems.get(key);
     this.auxItems = this.auxItems.update(key, (value) => {
       if (!value) {
         return undefined;
@@ -74,7 +75,7 @@ class ListStore {
       return value.mergeDeep(item);
     });
 
-    resolve(this.auxItems.get(key));
+    resolve({ editedKey: key, oldItem, editedItem: this.auxItems.get(key) });
   }
 
   handleSearchItem({ query, predicate }) {

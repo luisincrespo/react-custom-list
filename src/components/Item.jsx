@@ -18,13 +18,15 @@ class Item extends React.Component {
 
   // (newItem: object) => void
   _onEdit(newItem) {
-    const oldItem = this.props.item.toJS();
-
-    ListActions.editItem(this.props.itemKey, newItem).then((editedItem) => {
-      this.props.onItemEdit(
-        this.props.itemKey, oldItem, editedItem ? editedItem.toJS() : undefined
-      );
-    });
+    ListActions.editItem(this.props.itemKey, newItem).then(
+      ({ editedKey, oldItem, editedItem }) => {
+        this.props.onItemEdit(
+          editedKey,
+          oldItem ? oldItem.toJS() : undefined,
+          editedItem ? editedItem.toJS() : undefined
+        );
+      }
+    );
   }
 
   render() {

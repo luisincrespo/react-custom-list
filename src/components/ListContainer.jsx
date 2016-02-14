@@ -133,13 +133,15 @@ class ListContainer extends React.Component {
 
   // (key: number, newItem: object) => void
   editItem(key, newItem) {
-    const oldItem = this.getItem(key);
-
-    ListActions.editItem(key, newItem).then((editedItem) => {
-      this.props.onItemEdit(
-        key, oldItem, editedItem ? editedItem.toJS() : undefined
-      );
-    });
+    ListActions.editItem(key, newItem).then(
+      ({ editedKey, oldItem, editedItem }) => {
+        this.props.onItemEdit(
+          editedKey,
+          oldItem ? oldItem.toJS() : undefined,
+          editedItem ? editedItem.toJS() : undefined
+        );
+      }
+    );
   }
 
   render() {
