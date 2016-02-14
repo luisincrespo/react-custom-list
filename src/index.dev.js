@@ -82,7 +82,13 @@ class DummyComponent extends React.Component {
             (item, query) =>
             item.name.toLowerCase().startsWith(query.toLowerCase())
           }
-          onItemSearch={(query) => console.log(query)}
+          onItemSearch={
+            (query, allItems, filteredItems) => {
+              console.log(query);
+              console.log(allItems);
+              console.log(filteredItems);
+            }
+          }
           onItemsSet={
             (oldItems, newItems) => {
               console.log(oldItems);

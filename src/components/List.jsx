@@ -10,9 +10,15 @@ import ListActions from '../actions/ListActions';
 
 class List extends React.Component {
   _onQueryChange(query) {
-    ListActions.searchItem(query, this.props.itemSearchPredicate);
-
-    this.props.onItemSearch(query);
+    ListActions.searchItem(query, this.props.itemSearchPredicate).then(
+      ({ searchQuery, allItems, filteredItems }) => {
+        this.props.onItemSearch(
+          searchQuery,
+          allItems.valueSeq().toJS(),
+          filteredItems.valueSeq().toJS()
+        );
+      }
+    );
   }
 
   render() {

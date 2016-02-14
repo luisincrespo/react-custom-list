@@ -78,13 +78,22 @@ class ListStore {
     resolve({ editedKey: key, oldItem, editedItem: this.auxItems.get(key) });
   }
 
-  handleSearchItem({ query, predicate }) {
+  handleSearchItem({ query, predicate, resolve }) {
     if (query === '') {
       this.items = this.auxItems.slice();
-      return;
+    } else {
+      this.items = this.auxItems.filter(
+        (item) => predicate(item.toJS(), query)
+      );
     }
 
-    this.items = this.auxItems.filter((item) => predicate(item.toJS(), query));
+    resolve(
+      {
+        searchQuery: query,
+        allItems: this.auxItems.slice(),
+        filteredItems: this.items.slice()
+      }
+    );
   }
 
   handleClearItems() {

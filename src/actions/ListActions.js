@@ -28,7 +28,9 @@ class ListActions {
   }
 
   searchItem(query, predicate) {
-    this.dispatch({ query, predicate });
+    return new Promise((resolve) => {
+      this.dispatch({ query, predicate, resolve });
+    });
   }
 
   clearItems() {

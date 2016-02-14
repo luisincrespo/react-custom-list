@@ -167,7 +167,14 @@ ListContainer.propTypes = {
   itemSearchContent: React.PropTypes.element,
   itemSearchPredicate: CustomPropTypes.itemSearchPredicate,
     // (item: object, query: string) => bool
-  onItemSearch: React.PropTypes.func, // (query: string) => void
+  onItemSearch: React.PropTypes.func,
+    /*
+      (
+        query: string,
+        allItems: arrayOf(object),
+        filteredItems: arrayOf(object)
+      ) => void
+    */
   itemContent: React.PropTypes.element,
   onItemsSet: React.PropTypes.func,
     // (oldItems: arrayOf(object), newItems: arrayOf(object)) => void
