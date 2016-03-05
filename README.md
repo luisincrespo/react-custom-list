@@ -20,13 +20,25 @@ import ReactDOM from 'react-dom';
 import ReactList from '@luisincrespo/react-list';
 
 class DummyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.resetItems = this.resetItems.bind(this);
+    this.clearItems = this.clearItems.bind(this);
+    this.pushItem = this.pushItem.bind(this);
+    this.unshiftItem = this.unshiftItem.bind(this);
+    this.addItemBelowFirst = this.addItemBelowFirst.bind(this);
+    this.addItemAboveFirst = this.addItemAboveFirst.bind(this);
+    this.editFirstItem = this.editFirstItem.bind(this);
+    this.removeFirstItem = this.removeFirstItem.bind(this);
+  }
+
   resetItems(event) {
     event.preventDefault();
 
     this.reactList.setItems([
-      {name: 'Item 1'},
-      {name: 'Item 2'},
-      {name: 'Item 3'}
+      { name: 'Item 1' },
+      { name: 'Item 2' },
+      { name: 'Item 3' }
     ]);
   }
 
@@ -55,7 +67,7 @@ class DummyComponent extends React.Component {
   addItemBelowFirst(event) {
     event.preventDefault();
 
-    const firstKey = this.reactList.getKeys()[0]
+    const firstKey = this.reactList.getKeys()[0];
 
     this.reactList.addItemBelow(firstKey, { name: 'Item X' });
   }
@@ -63,7 +75,7 @@ class DummyComponent extends React.Component {
   addItemAboveFirst(event) {
     event.preventDefault();
 
-    const firstKey = this.reactList.getKeys()[0]
+    const firstKey = this.reactList.getKeys()[0];
 
     this.reactList.addItemAbove(firstKey, { name: 'Item X' });
   }
@@ -71,7 +83,7 @@ class DummyComponent extends React.Component {
   editFirstItem(event) {
     event.preventDefault();
 
-    const firstKey = this.reactList.getKeys()[0]
+    const firstKey = this.reactList.getKeys()[0];
 
     this.reactList.editItem(firstKey, { name: 'New Name' });
   }
@@ -79,7 +91,7 @@ class DummyComponent extends React.Component {
   removeFirstItem(event) {
     event.preventDefault();
 
-    const firstKey = this.reactList.getKeys()[0]
+    const firstKey = this.reactList.getKeys()[0];
 
     this.reactList.removeItem(firstKey);
   }
@@ -89,16 +101,22 @@ class DummyComponent extends React.Component {
       <div>
         <ReactList
           initialItems={[
-            {name: 'Item 1'},
-            {name: 'Item 2'},
-            {name: 'Item 3'}
+            { name: 'Item 1' },
+            { name: 'Item 2' },
+            { name: 'Item 3' }
           ]}
-          showItemSearch={true}
+          showItemSearch
           itemSearchPredicate={
             (item, query) =>
             item.name.toLowerCase().startsWith(query.toLowerCase())
           }
-          onItemSearch={(query) => console.log(query)}
+          onItemSearch={
+            (query, allItems, filteredItems) => {
+              console.log(query);
+              console.log(allItems);
+              console.log(filteredItems);
+            }
+          }
           onItemsSet={
             (oldItems, newItems) => {
               console.log(oldItems);
@@ -135,19 +153,20 @@ class DummyComponent extends React.Component {
               console.log(editedItem);
             }
           }
-          ref={(ref) => this.reactList = ref}/>
-        <button onClick={this.resetItems.bind(this)}>Reset Items</button>
-        <button onClick={this.clearItems.bind(this)}>Clear Items</button>
-        <button onClick={this.pushItem.bind(this)}>Push Item</button>
-        <button onClick={this.unshiftItem.bind(this)}>Unshift Item</button>
-        <button onClick={this.addItemBelowFirst.bind(this)}>
+          ref={(ref) => { this.reactList = ref; }}
+        />
+        <button onClick={this.resetItems}>Reset Items</button>
+        <button onClick={this.clearItems}>Clear Items</button>
+        <button onClick={this.pushItem}>Push Item</button>
+        <button onClick={this.unshiftItem}>Unshift Item</button>
+        <button onClick={this.addItemBelowFirst}>
           Add Item Below 1st
         </button>
-        <button onClick={this.addItemAboveFirst.bind(this)}>
+        <button onClick={this.addItemAboveFirst}>
           Add Item Above 1st
         </button>
-        <button onClick={this.editFirstItem.bind(this)}>Edit 1st Item</button>
-        <button onClick={this.removeFirstItem.bind(this)}>
+        <button onClick={this.editFirstItem}>Edit 1st Item</button>
+        <button onClick={this.removeFirstItem}>
           Remove 1st Item
         </button>
       </div>
@@ -220,6 +239,15 @@ Specifies a component to be used to render the search widget. Defaults to:
 
 ``` javascript
 class DefaultItemSearchContent extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onSearch = this._onSearch.bind(this);
+  }
+
+  _preventDefault(event) {
+    event.preventDefault();
+  }
+
   _onSearch(event) {
     event.preventDefault();
 
@@ -228,12 +256,13 @@ class DefaultItemSearchContent extends React.Component {
 
   render() {
     return (
-      <form onSubmit={(event) => event.preventDefault()}>
+      <form onSubmit={this._preventDefault}>
         <label>Search: </label>
         <input
           type="search"
-          onChange={this._onSearch.bind(this)}
-          ref={(ref) => this.query = ref}/>
+          onChange={this._onSearch}
+          ref={(ref) => { this.query = ref; }}
+        />
       </form>
     );
   }
@@ -245,19 +274,24 @@ DefaultItemSearchContent.propTypes = {
 ```
 The following props will be available for the component:
 
-* **onQueryChange(query: string) => void**: Must be called to actually filter the list. The `itemSearchPredicate` (defined below) will be used to filter the list with the given *query*.
+* **onQueryChange(query: string) => void**: Must be called to actually filter the list. The `itemSearchPredicate` prop (defined below) will be used to filter the list with the given *query*.
 
 ### itemSearchPredicate(item: object, query: string) => bool (REQUIRED if `showItemSearch` is set to `true`)
 Specifies a predicate to be used when filtering the list.
 
-### onItemSearch(query: string) => void (OPTIONAL)
-Specifies a callback to be fired whenever the list is filtered with the given *query*.
+### onItemSearch(query: string, allItems: array&lt;object&gt;, filteredItems: array&lt;object&gt;) => void (OPTIONAL)
+Specifies a callback to be fired whenever the list is filtered with the given *query*, receiving *allItems* and *filteredItems* as parameters.
 
 ### itemContent: React Component (DEFAULTS to `DefaultItemContent`)
 Specifies a component to be used to render each item in the list. Defaults to:
 
 ``` javascript
 class DefaultItemContent extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onRemove = this._onRemove.bind(this);
+  }
+
   _onRemove(event) {
     event.preventDefault();
 
@@ -271,7 +305,8 @@ class DefaultItemContent extends React.Component {
         <div>
           <a
             href="#"
-            onClick={this._onRemove.bind(this)}>
+            onClick={this._onRemove}
+          >
             Remove
           </a>
         </div>
