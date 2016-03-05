@@ -1,14 +1,15 @@
 {
-  "name": "@luisincrespo/react-list",
+  "name": "react-custom-list",
   "version": "0.1.0",
-  "description": "React Component for a list where you can add, edit, remove and search items.",
+  "description": "React Component for a dynamic list of custom items.",
   "main": "dist/react-list.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js --ext .jsx .",
     "build": "npm run lint && webpack --config webpack.config.js --progress --colors",
     "build:dev": "npm run lint && webpack --config webpack.config.dev.js --progress --colors",
-    "serve": "webpack-dev-server --config webpack.config.dev.js --content-base public/"
+    "serve": "webpack-dev-server --config webpack.config.dev.js --content-base public/",
+    "prepublish": "npm install && npm update && npm run build"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   "keywords": [
     "list",
     "items",
+    "dynamic",
+    "custom",
     "react",
     "react-component"
   ],
