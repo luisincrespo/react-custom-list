@@ -194,7 +194,7 @@ class DummyComponent extends React.Component {
 ReactDOM.render(<DummyComponent/>, document.getElementById('main'));
 ```
 
-Watch a live demo of the previous code snippet here http://luisincrespo.github.io/react-list.
+Watch a live demo of the previous code snippet here http://luisincrespo.github.io/react-custom-list.
 
 ## API
 
