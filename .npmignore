@@ -6,6 +6,8 @@ public
 
 src
 
+.eslintignore
+
 .eslintrc
 
 .gitignore
