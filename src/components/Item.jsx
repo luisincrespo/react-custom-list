@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-undef */
+
 import React from 'react';
 
 import ListActions from '../actions/ListActions';
@@ -5,6 +7,12 @@ import ListActions from '../actions/ListActions';
 import DefaultItemContent from './DefaultItemContent';
 
 class Item extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onRemove = this._onRemove.bind(this);
+    this._onEdit = this._onEdit.bind(this);
+  }
+
   // () => void
   _onRemove() {
     ListActions.removeItem(this.props.itemKey).then(
@@ -33,8 +41,9 @@ class Item extends React.Component {
     return (
       <this.props.itemContent
         item={this.props.item}
-        onRemove={this._onRemove.bind(this)}
-        onEdit={this._onEdit.bind(this)}/>
+        onRemove={this._onRemove}
+        onEdit={this._onEdit}
+      />
     );
   }
 }

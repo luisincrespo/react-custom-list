@@ -29,7 +29,7 @@ class ListStore {
     this.items = this.auxItems.clear();
     this.auxItems = this.auxItems.clear();
 
-    items.map((item) => {
+    items.forEach((item) => {
       this.items = this.items.set(
         this._generateKey(), Immutable.fromJS(item)
       );

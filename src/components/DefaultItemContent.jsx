@@ -1,6 +1,11 @@
 import React from 'react';
 
 class DefaultItemContent extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onRemove = this._onRemove.bind(this);
+  }
+
   _onRemove(event) {
     event.preventDefault();
 
@@ -14,7 +19,8 @@ class DefaultItemContent extends React.Component {
         <div>
           <a
             href="#"
-            onClick={this._onRemove.bind(this)}>
+            onClick={this._onRemove}
+          >
             Remove
           </a>
         </div>

@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-undef */
+
 import React from 'react';
 
 import Item from './Item';
@@ -9,6 +11,11 @@ import CustomPropTypes from '../utils/propValidators';
 import ListActions from '../actions/ListActions';
 
 class List extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onQueryChange = this._onQueryChange.bind(this);
+  }
+
   _onQueryChange(query) {
     ListActions.searchItem(query, this.props.itemSearchPredicate).then(
       ({ searchQuery, allItems, filteredItems }) => {
@@ -26,22 +33,25 @@ class List extends React.Component {
       <div>
         {this.props.showItemSearch ? (
           <this.props.itemSearchContent
-            onQueryChange={this._onQueryChange.bind(this)}/>
+            onQueryChange={this._onQueryChange}
+          />
         ) : null}
         <ul>
-          {this.props.items.isEmpty() ? ( // eslint-disable-line
-            <this.props.itemsEmptyContent/>
-          ) : this.props.items.entrySeq().map(([key, item]) => { // eslint-disable-line
-            return (
+          {this.props.items.isEmpty() ? (
+            <this.props.itemsEmptyContent />
+          ) : this.props.items.entrySeq().map(
+            ([key, item]) =>
+            (
               <Item
                 key={key}
                 item={item}
                 itemKey={key}
                 itemContent={this.props.itemContent}
                 onItemRemove={this.props.onItemRemove}
-                onItemEdit={this.props.onItemEdit}/>
-            );
-          })}
+                onItemEdit={this.props.onItemEdit}
+              />
+            )
+          )}
         </ul>
       </div>
     );
@@ -49,6 +59,10 @@ class List extends React.Component {
 }
 
 List.propTypes = {
+  items: React.PropTypes.any,
+    /* This is actually an Immutable OrderedMap. It is automagically injected
+     * by Alt's AltContainer.
+     */
   showItemSearch: React.PropTypes.bool,
   itemSearchContent: React.PropTypes.element,
   itemSearchPredicate: CustomPropTypes.itemSearchPredicate,

@@ -1,9 +1,23 @@
+/* eslint-disable no-console, react/jsx-no-bind */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import ListContainer from './components/ListContainer';
 
 class DummyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.resetItems = this.resetItems.bind(this);
+    this.clearItems = this.clearItems.bind(this);
+    this.pushItem = this.pushItem.bind(this);
+    this.unshiftItem = this.unshiftItem.bind(this);
+    this.addItemBelowFirst = this.addItemBelowFirst.bind(this);
+    this.addItemAboveFirst = this.addItemAboveFirst.bind(this);
+    this.editFirstItem = this.editFirstItem.bind(this);
+    this.removeFirstItem = this.removeFirstItem.bind(this);
+  }
+
   resetItems(event) {
     event.preventDefault();
 
@@ -84,61 +98,61 @@ class DummyComponent extends React.Component {
           }
           onItemSearch={
             (query, allItems, filteredItems) => {
-              console.log(query); // eslint-disable-line no-console
-              console.log(allItems); // eslint-disable-line no-console
-              console.log(filteredItems); // eslint-disable-line no-console
+              console.log(query);
+              console.log(allItems);
+              console.log(filteredItems);
             }
           }
           onItemsSet={
             (oldItems, newItems) => {
-              console.log(oldItems); // eslint-disable-line no-console
-              console.log(newItems); // eslint-disable-line no-console
+              console.log(oldItems);
+              console.log(newItems);
             }
           }
-          onItemsClear={(items) => console.log(items)} // eslint-disable-line no-console
-          onItemPush={(item) => console.log(item)} // eslint-disable-line no-console
-          onItemUnshift={(item) => console.log(item)} // eslint-disable-line no-console
+          onItemsClear={(items) => console.log(items)}
+          onItemPush={(item) => console.log(item)}
+          onItemUnshift={(item) => console.log(item)}
           onItemAddBelow={
             (key, existingItem, newItem) => {
-              console.log(key); // eslint-disable-line no-console
-              console.log(existingItem); // eslint-disable-line no-console
-              console.log(newItem); // eslint-disable-line no-console
+              console.log(key);
+              console.log(existingItem);
+              console.log(newItem);
             }
           }
           onItemAddAbove={
             (key, existingItem, newItem) => {
-              console.log(key); // eslint-disable-line no-console
-              console.log(existingItem); // eslint-disable-line no-console
-              console.log(newItem); // eslint-disable-line no-console
+              console.log(key);
+              console.log(existingItem);
+              console.log(newItem);
             }
           }
           onItemRemove={
             (key, item) => {
-              console.log(key); // eslint-disable-line no-console
-              console.log(item); // eslint-disable-line no-console
+              console.log(key);
+              console.log(item);
             }
           }
           onItemEdit={
             (key, oldItem, editedItem) => {
-              console.log(key); // eslint-disable-line no-console
-              console.log(oldItem); // eslint-disable-line no-console
-              console.log(editedItem); // eslint-disable-line no-console
+              console.log(key);
+              console.log(oldItem);
+              console.log(editedItem);
             }
           }
-          ref={(ref) => this.listContainer = ref}
+          ref={(ref) => { this.listContainer = ref; }}
         />
-        <button onClick={this.resetItems.bind(this)}>Reset Items</button>
-        <button onClick={this.clearItems.bind(this)}>Clear Items</button>
-        <button onClick={this.pushItem.bind(this)}>Push Item</button>
-        <button onClick={this.unshiftItem.bind(this)}>Unshift Item</button>
-        <button onClick={this.addItemBelowFirst.bind(this)}>
+        <button onClick={this.resetItems}>Reset Items</button>
+        <button onClick={this.clearItems}>Clear Items</button>
+        <button onClick={this.pushItem}>Push Item</button>
+        <button onClick={this.unshiftItem}>Unshift Item</button>
+        <button onClick={this.addItemBelowFirst}>
           Add Item Below 1st
         </button>
-        <button onClick={this.addItemAboveFirst.bind(this)}>
+        <button onClick={this.addItemAboveFirst}>
           Add Item Above 1st
         </button>
-        <button onClick={this.editFirstItem.bind(this)}>Edit 1st Item</button>
-        <button onClick={this.removeFirstItem.bind(this)}>
+        <button onClick={this.editFirstItem}>Edit 1st Item</button>
+        <button onClick={this.removeFirstItem}>
           Remove 1st Item
         </button>
       </div>
@@ -146,4 +160,4 @@ class DummyComponent extends React.Component {
   }
 }
 
-ReactDOM.render(<DummyComponent/>, document.getElementById('main'));
+ReactDOM.render(<DummyComponent />, document.getElementById('main'));

@@ -25,9 +25,9 @@ class ListContainer extends React.Component {
 
   // (predicate: (item: object) => bool) => number
   getKey(predicate) {
-    return ListStore.getState().auxItems.findKey((item) => {
-      return predicate(item.toJS());
-    });
+    return ListStore.getState().auxItems.findKey(
+      (item) => predicate(item.toJS())
+    );
   }
 
   // () => arrayOf(object)
@@ -154,7 +154,8 @@ class ListContainer extends React.Component {
           itemContent={this.props.itemContent}
           onItemRemove={this.props.onItemRemove}
           onItemEdit={this.props.onItemEdit}
-          itemsEmptyContent={this.props.itemsEmptyContent}/>
+          itemsEmptyContent={this.props.itemsEmptyContent}
+        />
       </AltContainer>
     );
   }
