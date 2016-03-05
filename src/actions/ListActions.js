@@ -4,45 +4,37 @@ import Alt from '../Alt';
 
 class ListActions {
   setItems(items) {
-    return new Promise((resolve) => {
-      this.dispatch({ items, resolve });
-    });
+    return (dispatch) => new Promise((resolve) => dispatch({ items, resolve }));
   }
 
   addItem(item) {
-    return new Promise((resolve) => {
-      this.dispatch({ item, resolve });
-    });
+    return (dispatch) => new Promise((resolve) => dispatch({ item, resolve }));
   }
 
   removeItem(key) {
-    return new Promise((resolve) => {
-      this.dispatch({ key, resolve });
-    });
+    return (dispatch) => new Promise((resolve) => dispatch({ key, resolve }));
   }
 
   editItem(key, item) {
-    return new Promise((resolve) => {
-      this.dispatch({ key, item, resolve });
-    });
+    return (dispatch) => new Promise(
+      (resolve) => dispatch({ key, item, resolve })
+    );
   }
 
   setItem(key, item) {
-    return new Promise((resolve) => {
-      this.dispatch({ key, item, resolve });
-    });
+    return (dispatch) => new Promise(
+      (resolve) => dispatch({ key, item, resolve })
+    );
   }
 
   searchItem(query, predicate) {
-    return new Promise((resolve) => {
-      this.dispatch({ query, predicate, resolve });
-    });
+    return (dispatch) => new Promise(
+      (resolve) => dispatch({ query, predicate, resolve })
+    );
   }
 
   clearItems() {
-    return new Promise((resolve) => {
-      this.dispatch(resolve);
-    });
+    return (dispatch) => new Promise((resolve) => dispatch(resolve));
   }
 }
 

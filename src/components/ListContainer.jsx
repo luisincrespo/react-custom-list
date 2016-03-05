@@ -1,4 +1,4 @@
-import AltContainer from 'alt/AltContainer';
+import AltContainer from 'alt-container';
 import React from 'react';
 
 import ListActions from '../actions/ListActions';

@@ -47,7 +47,8 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
-    "alt": "^0.17.9",
+    "alt": "^0.18.2",
+    "alt-container": "^1.0.2",
     "es6-promise": "^3.0.2",
     "immutable": "^3.7.5"
   }
