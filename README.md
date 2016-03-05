@@ -1,4 +1,4 @@
-# react-list
+# react-custom-list
 React Component for a dynamic list of custom items.
 
 ## Installation
