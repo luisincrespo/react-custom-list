@@ -29,6 +29,7 @@ class DummyComponent extends React.Component {
     this.addItemBelowFirst = this.addItemBelowFirst.bind(this);
     this.addItemAboveFirst = this.addItemAboveFirst.bind(this);
     this.editFirstItem = this.editFirstItem.bind(this);
+    this.setFirstItem = this.setFirstItem.bind(this);
     this.removeFirstItem = this.removeFirstItem.bind(this);
   }
 
@@ -85,7 +86,15 @@ class DummyComponent extends React.Component {
 
     const firstKey = this.reactList.getKeys()[0];
 
-    this.reactList.editItem(firstKey, { name: 'New Name' });
+    this.reactList.editItem(firstKey, { dummyProp: 'Dummy prop' });
+  }
+
+  setFirstItem(event) {
+    event.preventDefault();
+
+    const firstKey = this.reactList.getKeys()[0];
+
+    this.reactList.setItem(firstKey, { dummyProp: 'Dummy prop' });
   }
 
   removeFirstItem(event) {
@@ -153,6 +162,13 @@ class DummyComponent extends React.Component {
               console.log(editedItem);
             }
           }
+          onItemSet={
+            (key, oldItem, newItem) => {
+              console.log(key);
+              console.log(oldItem);
+              console.log(newItem);
+            }
+          }
           ref={(ref) => { this.reactList = ref; }}
         />
         <button onClick={this.resetItems}>Reset Items</button>
@@ -166,6 +182,7 @@ class DummyComponent extends React.Component {
           Add Item Above 1st
         </button>
         <button onClick={this.editFirstItem}>Edit 1st Item</button>
+        <button onClick={this.setFirstItem}>Set 1st Item</button>
         <button onClick={this.removeFirstItem}>
           Remove 1st Item
         </button>
@@ -225,6 +242,9 @@ Removes the item corresponding to the given *key* if it exists.
 
 ### editItem(key: number, newItem: object) => void
 Edits the item corresponding to the given *key* if it exists, merging it with the content of the *newItem*.
+
+### setItem(key: number, item: object) => void
+Replaces the item corresponding to the given *key* if it exists, with the specified *item*.
 
 ## Props
 
@@ -350,6 +370,9 @@ Specifies a callback to be fired whenever an *item* is removed from the list, re
 
 ### onItemEdit(key: number, oldItem: object, editedItem: object) => void (OPTIONAL)
 Specifies a callback to be fired whenever an item (*oldItem* corresponding to the given *key*) is edited, receiving also the new content (*editedItem*) as a parameter.
+
+### onItemSet(key: number, oldItem: object, newItem: object) => void (OPTIONAL)
+Specifies a callback to be fired whenever an item (*oldItem* corresponding to the given *key*) is set (replaced), receiving also the *newItem* as a parameter.
 
 ### itemsEmptyContent: React Component (DEFAULTS to `DefaultItemsEmptyContent`)
 Specifies a component to be used to render the widget to show when the list is empty. Defaults to:

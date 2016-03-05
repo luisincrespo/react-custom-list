@@ -15,6 +15,7 @@ class DummyComponent extends React.Component {
     this.addItemBelowFirst = this.addItemBelowFirst.bind(this);
     this.addItemAboveFirst = this.addItemAboveFirst.bind(this);
     this.editFirstItem = this.editFirstItem.bind(this);
+    this.setFirstItem = this.setFirstItem.bind(this);
     this.removeFirstItem = this.removeFirstItem.bind(this);
   }
 
@@ -71,7 +72,15 @@ class DummyComponent extends React.Component {
 
     const firstKey = this.listContainer.getKeys()[0];
 
-    this.listContainer.editItem(firstKey, { name: 'New Name' });
+    this.listContainer.editItem(firstKey, { dummyProp: 'Dummy prop' });
+  }
+
+  setFirstItem(event) {
+    event.preventDefault();
+
+    const firstKey = this.listContainer.getKeys()[0];
+
+    this.listContainer.setItem(firstKey, { dummyProp: 'Dummy prop' });
   }
 
   removeFirstItem(event) {
@@ -139,6 +148,13 @@ class DummyComponent extends React.Component {
               console.log(editedItem);
             }
           }
+          onItemSet={
+            (key, oldItem, newItem) => {
+              console.log(key);
+              console.log(oldItem);
+              console.log(newItem);
+            }
+          }
           ref={(ref) => { this.listContainer = ref; }}
         />
         <button onClick={this.resetItems}>Reset Items</button>
@@ -152,6 +168,7 @@ class DummyComponent extends React.Component {
           Add Item Above 1st
         </button>
         <button onClick={this.editFirstItem}>Edit 1st Item</button>
+        <button onClick={this.setFirstItem}>Set 1st Item</button>
         <button onClick={this.removeFirstItem}>
           Remove 1st Item
         </button>
