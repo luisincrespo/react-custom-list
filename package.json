@@ -8,8 +8,7 @@
     "lint": "eslint --ext .js --ext .jsx .",
     "build": "npm run lint && webpack --config webpack.config.js --progress --colors",
     "build:dev": "npm run lint && webpack --config webpack.config.dev.js --progress --colors",
-    "serve": "webpack-dev-server --config webpack.config.dev.js --content-base public/",
-    "prepublish": "npm install && npm update && npm run build"
+    "serve": "webpack-dev-server --config webpack.config.dev.js --content-base public/"
   },
   "repository": {
     "type": "git",
