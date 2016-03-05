@@ -4,7 +4,7 @@ React Component for a dynamic list of custom items.
 ## Installation
 
 Through npm:
-> npm install @luisincrespo/react-list --save
+> npm install react-custom-list --save
 
 ## Peer dependencies
 
