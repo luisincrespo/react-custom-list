@@ -8,9 +8,9 @@ class DummyComponent extends React.Component {
     event.preventDefault();
 
     this.listContainer.setItems([
-      {name: 'Item 1'},
-      {name: 'Item 2'},
-      {name: 'Item 3'}
+      { name: 'Item 1' },
+      { name: 'Item 2' },
+      { name: 'Item 3' }
     ]);
   }
 
@@ -39,7 +39,7 @@ class DummyComponent extends React.Component {
   addItemBelowFirst(event) {
     event.preventDefault();
 
-    const firstKey = this.listContainer.getKeys()[0]
+    const firstKey = this.listContainer.getKeys()[0];
 
     this.listContainer.addItemBelow(firstKey, { name: 'Item X' });
   }
@@ -47,7 +47,7 @@ class DummyComponent extends React.Component {
   addItemAboveFirst(event) {
     event.preventDefault();
 
-    const firstKey = this.listContainer.getKeys()[0]
+    const firstKey = this.listContainer.getKeys()[0];
 
     this.listContainer.addItemAbove(firstKey, { name: 'Item X' });
   }
@@ -55,7 +55,7 @@ class DummyComponent extends React.Component {
   editFirstItem(event) {
     event.preventDefault();
 
-    const firstKey = this.listContainer.getKeys()[0]
+    const firstKey = this.listContainer.getKeys()[0];
 
     this.listContainer.editItem(firstKey, { name: 'New Name' });
   }
@@ -63,7 +63,7 @@ class DummyComponent extends React.Component {
   removeFirstItem(event) {
     event.preventDefault();
 
-    const firstKey = this.listContainer.getKeys()[0]
+    const firstKey = this.listContainer.getKeys()[0];
 
     this.listContainer.removeItem(firstKey);
   }
@@ -73,59 +73,60 @@ class DummyComponent extends React.Component {
       <div>
         <ListContainer
           initialItems={[
-            {name: 'Item 1'},
-            {name: 'Item 2'},
-            {name: 'Item 3'}
+            { name: 'Item 1' },
+            { name: 'Item 2' },
+            { name: 'Item 3' }
           ]}
-          showItemSearch={true}
+          showItemSearch
           itemSearchPredicate={
             (item, query) =>
             item.name.toLowerCase().startsWith(query.toLowerCase())
           }
           onItemSearch={
             (query, allItems, filteredItems) => {
-              console.log(query);
-              console.log(allItems);
-              console.log(filteredItems);
+              console.log(query); // eslint-disable-line no-console
+              console.log(allItems); // eslint-disable-line no-console
+              console.log(filteredItems); // eslint-disable-line no-console
             }
           }
           onItemsSet={
             (oldItems, newItems) => {
-              console.log(oldItems);
-              console.log(newItems);
+              console.log(oldItems); // eslint-disable-line no-console
+              console.log(newItems); // eslint-disable-line no-console
             }
           }
-          onItemsClear={(items) => console.log(items)}
-          onItemPush={(item) => console.log(item)}
-          onItemUnshift={(item) => console.log(item)}
+          onItemsClear={(items) => console.log(items)} // eslint-disable-line no-console
+          onItemPush={(item) => console.log(item)} // eslint-disable-line no-console
+          onItemUnshift={(item) => console.log(item)} // eslint-disable-line no-console
           onItemAddBelow={
             (key, existingItem, newItem) => {
-              console.log(key);
-              console.log(existingItem);
-              console.log(newItem);
+              console.log(key); // eslint-disable-line no-console
+              console.log(existingItem); // eslint-disable-line no-console
+              console.log(newItem); // eslint-disable-line no-console
             }
           }
           onItemAddAbove={
             (key, existingItem, newItem) => {
-              console.log(key);
-              console.log(existingItem);
-              console.log(newItem);
+              console.log(key); // eslint-disable-line no-console
+              console.log(existingItem); // eslint-disable-line no-console
+              console.log(newItem); // eslint-disable-line no-console
             }
           }
           onItemRemove={
             (key, item) => {
-              console.log(key);
-              console.log(item);
+              console.log(key); // eslint-disable-line no-console
+              console.log(item); // eslint-disable-line no-console
             }
           }
           onItemEdit={
             (key, oldItem, editedItem) => {
-              console.log(key);
-              console.log(oldItem);
-              console.log(editedItem);
+              console.log(key); // eslint-disable-line no-console
+              console.log(oldItem); // eslint-disable-line no-console
+              console.log(editedItem); // eslint-disable-line no-console
             }
           }
-          ref={(ref) => this.listContainer = ref}/>
+          ref={(ref) => this.listContainer = ref}
+        />
         <button onClick={this.resetItems.bind(this)}>Reset Items</button>
         <button onClick={this.clearItems.bind(this)}>Clear Items</button>
         <button onClick={this.pushItem.bind(this)}>Push Item</button>
