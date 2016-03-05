@@ -5,7 +5,7 @@
   "main": "dist/react-list.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --ext .js --ext .jsx src",
+    "lint": "eslint --ext .js --ext .jsx .",
     "build": "npm run lint && webpack --config webpack.config.js --progress --colors",
     "build:dev": "npm run lint && webpack --config webpack.config.dev.js --progress --colors",
     "serve": "webpack-dev-server --config webpack.config.dev.js --content-base public/"
