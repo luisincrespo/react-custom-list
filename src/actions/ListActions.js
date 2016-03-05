@@ -27,6 +27,12 @@ class ListActions {
     });
   }
 
+  setItem(key, item) {
+    return new Promise((resolve) => {
+      this.dispatch({ key, item, resolve });
+    });
+  }
+
   searchItem(query, predicate) {
     return new Promise((resolve) => {
       this.dispatch({ query, predicate, resolve });

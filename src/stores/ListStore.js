@@ -13,6 +13,7 @@ class ListStore {
       handleAddItem: ListActions.ADD_ITEM,
       handleRemoveItem: ListActions.REMOVE_ITEM,
       handleEditItem: ListActions.EDIT_ITEM,
+      handleSetItem: ListActions.SET_ITEM,
       handleSearchItem: ListActions.SEARCH_ITEM,
       handleClearItems: ListActions.CLEAR_ITEMS
     });
@@ -77,6 +78,25 @@ class ListStore {
     });
 
     resolve({ editedKey: key, oldItem, editedItem: this.auxItems.get(key) });
+  }
+
+  handleSetItem({ key, item, resolve }) {
+    this.items = this.auxItems.update(key, (value) => {
+      if (!value) {
+        return undefined;
+      }
+      return Immutable.fromJS(item);
+    });
+
+    const oldItem = this.auxItems.get(key);
+    this.auxItems = this.auxItems.update(key, (value) => {
+      if (!value) {
+        return undefined;
+      }
+      return Immutable.fromJS(item);
+    });
+
+    resolve({ editedKey: key, oldItem, newItem: this.auxItems.get(key) });
   }
 
   handleSearchItem({ query, predicate, resolve }) {

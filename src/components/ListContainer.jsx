@@ -143,6 +143,19 @@ class ListContainer extends React.Component {
     );
   }
 
+  // (key: number, item: object) => void
+  setItem(key, item) {
+    ListActions.setItem(key, item).then(
+      ({ editedKey, oldItem, newItem }) => {
+        this.props.onItemSet(
+          editedKey,
+          oldItem ? oldItem.toJS() : undefined,
+          newItem ? newItem.toJS() : undefined
+        );
+      }
+    );
+  }
+
   render() {
     return (
       <AltContainer store={ListStore}>
@@ -188,6 +201,8 @@ ListContainer.propTypes = {
   onItemRemove: React.PropTypes.func, // (key: number, item: object) => void
   onItemEdit: React.PropTypes.func,
     // (key: number, oldItem: object, editedItem: object) => void
+  onItemSet: React.PropTypes.func,
+    // (key: number, oldItem: object, newItem: object) => void
   itemsEmptyContent: React.PropTypes.element
 };
 
@@ -199,7 +214,8 @@ ListContainer.defaultProps = {
   onItemAddBelow: () => null,
   onItemAddAbove: () => null,
   onItemRemove: () => null,
-  onItemEdit: () => null
+  onItemEdit: () => null,
+  onItemSet: () => null
 };
 
 export default ListContainer;
