@@ -1,5 +1,5 @@
 # react-list
-React Component for a dynamic list of items.
+React Component for a dynamic list of custom items.
 
 ## Installation
 
