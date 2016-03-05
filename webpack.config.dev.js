@@ -1,10 +1,10 @@
 module.exports = {
-  context: __dirname + '/src',
+  context: `${__dirname}/src`,
 
   entry: './index.dev',
 
   output: {
-    path: __dirname + '/build',
+    path: `${__dirname}/build`,
     publicPath: '/assets/',
     filename: 'bundle.js'
   },

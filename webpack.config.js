@@ -1,5 +1,5 @@
 module.exports = {
-  context: __dirname + '/src',
+  context: `${__dirname}/src`,
 
   entry: './index',
 
@@ -7,7 +7,7 @@ module.exports = {
     library: 'ReactList',
     libraryTarget: 'commonjs2',
     filename: 'react-list.js',
-    path: __dirname + '/dist'
+    path: `${__dirname}/dist`
   },
 
   module: {
