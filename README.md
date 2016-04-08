@@ -17,7 +17,7 @@ Simply import it and use it. For example:
 ``` javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactList from '@luisincrespo/react-list';
+import ReactList from 'react-custom-list';
 
 class DummyComponent extends React.Component {
   constructor(props) {
