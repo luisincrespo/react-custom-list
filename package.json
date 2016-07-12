@@ -1,6 +1,6 @@
 {
   "name": "react-custom-list",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "React Component for a dynamic list of custom items.",
   "main": "dist/react-list.js",
   "scripts": {
